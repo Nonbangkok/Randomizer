@@ -6,3 +6,9 @@ dist/
 *.log
 .env
 .env.local
+
+# Planning Docs (Local only)
+IMPLEMENTATION_PLAN.md
+TECHNICAL_PLAN.md
+IDEA.md
+
