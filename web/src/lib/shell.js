@@ -1,6 +1,8 @@
 import { toggleTheme } from './theme.js';
+import { initGA } from './analytics.js';
 
 export function wireShell() {
+  initGA();
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
   syncThemeIcons();
