@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Sitemap location
 Sitemap: https://randomizer.app/sitemap.xml
