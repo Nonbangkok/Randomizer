@@ -51,6 +51,31 @@
         "description": "Free, private browser-based generators."
       }
     </script>
+
+    <style>
+      :root {
+        --color-bg: hsl(0 0% 99%);
+        --color-surface: hsl(0 0% 96%);
+        --color-text: hsl(0 0% 12%);
+        --color-accent: hsl(234 89% 63%);
+        --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      [data-theme='dark'] {
+        --color-bg: hsl(0 0% 8%);
+        --color-surface: hsl(0 0% 12%);
+        --color-text: hsl(0 0% 92%);
+      }
+      body {
+        margin: 0;
+        font-family: var(--font-sans);
+        background: var(--color-bg);
+        color: var(--color-text);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+    </style>
   </head>
   <body>
     <div class="app-shell">

@@ -30,10 +30,15 @@ function syncThemeIcons() {
 let wasmModulePromise;
 export function loadWasm() {
   if (!wasmModulePromise) {
-    wasmModulePromise = import('../../pkg/wasm_bridge.js').then(async (mod) => {
+    wasmModulePromise = (async () => {
+      // Small delay to let browser finish critical tasks
+      if ('requestIdleCallback' in window) {
+        await new Promise(resolve => window.requestIdleCallback(resolve));
+      }
+      const mod = await import('../../pkg/wasm_bridge.js');
       await mod.default();
       return mod;
-    });
+    })();
   }
   return wasmModulePromise;
 }
