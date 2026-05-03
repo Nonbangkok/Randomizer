@@ -31,16 +31,20 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          cache-dependency-path: web/package-lock.json
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+
+      - name: Install Dependencies
+        run: |
+          npm install
+          npm --prefix web install
 
       - name: Build WASM
         run: npm run build:wasm
 
       - name: Build Frontend
-        run: |
-          npm install
-          npm --prefix web install
-          npm --prefix web run build
+        run: npm --prefix web run build
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
