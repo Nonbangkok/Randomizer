@@ -1,0 +1,17 @@
+{
+  "name": "Randomizer",
+  "short_name": "Randomizer",
+  "description": "Free, private browser-based generators.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#141414",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
