@@ -1,0 +1,11 @@
+{
+  "name": "randomizer",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "build:wasm": "wasm-pack build crates/wasm_bridge --target web --out-dir ../../web/pkg",
+    "dev": "npm --prefix web run dev",
+    "build": "npm run build:wasm && npm --prefix web run build",
+    "test": "cargo test"
+  }
+}

@@ -1,0 +1,91 @@
+.ng {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.ng__controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  align-items: end;
+}
+
+.ng-field {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+.ng-field legend, .ng-field > label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-muted);
+  margin-bottom: var(--space-xs);
+}
+
+
+.ng-check {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--color-text);
+}
+
+.ng__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+.ng-generate { padding: var(--space-md) var(--space-xl); font-size: 1rem; }
+.ng-generate:active { transform: scale(0.98); }
+
+.ng-status {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.ng-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--space-md);
+}
+
+.ng-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  animation: ng-fade-in var(--duration-normal) var(--ease-out) backwards;
+  animation-delay: calc(var(--i, 0) * 30ms);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+.ng-card:hover { border-color: var(--color-accent); transform: translateY(-1px); }
+.ng-card__name {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.ng-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--color-muted);
+  padding: var(--space-xl);
+}
+
+@keyframes ng-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
