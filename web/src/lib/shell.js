@@ -2,7 +2,12 @@ import { toggleTheme } from './theme.js';
 import { initGA } from './analytics.js';
 
 export function wireShell() {
-  initGA();
+  // Defer GA initialization to reduce TBT
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(() => initGA());
+  } else {
+    setTimeout(initGA, 2000);
+  }
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
   syncThemeIcons();
