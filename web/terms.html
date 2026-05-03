@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms of Service — Randomizer</title>
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="/src/design-system/index.css" />
+    <style>
+      .policy-content {
+        max-width: 720px;
+        margin: var(--space-xl) auto;
+        line-height: 1.7;
+      }
+      .policy-content h1 { margin-bottom: var(--space-lg); }
+      .policy-content h2 { margin-top: var(--space-xl); margin-bottom: var(--space-md); }
+      .policy-content p { margin-bottom: var(--space-md); color: var(--color-text-muted); }
+    </style>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark' ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <a href="/" class="site-header__brand">
+            <span>Randomizer</span>
+          </a>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container">
+          <article class="policy-content">
+            <h1>Terms of Service</h1>
+            <p>Last updated: May 3, 2026</p>
+
+            <h2>1. Agreement to Terms</h2>
+            <p>By accessing the website at randomizer.app, you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.</p>
+
+            <h2>2. Use License</h2>
+            <p>Randomizer is an open-source project. You may use the tools for personal or commercial purposes. However, the service is provided "as is" without any warranties.</p>
+
+            <h2>3. Disclaimer</h2>
+            <p>The materials on Randomizer's website are provided on an 'as is' basis. Randomizer makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+
+            <h2>4. Limitations</h2>
+            <p>In no event shall Randomizer or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on Randomizer's website.</p>
+
+            <h2>5. Governing Law</h2>
+            <p>These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
+            
+            <div style="margin-top: 40px;">
+                <a href="/" class="btn btn--primary">Back to Home</a>
+            </div>
+          </article>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/src/pages/home.js"></script>
+  </body>
+</html>

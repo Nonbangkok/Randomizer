@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us — Randomizer</title>
+    <meta name="robots" content="noindex" />
+    <link rel="stylesheet" href="/src/design-system/index.css" />
+    <style>
+      .policy-content {
+        max-width: 720px;
+        margin: var(--space-xl) auto;
+        line-height: 1.7;
+      }
+      .policy-content h1 { margin-bottom: var(--space-lg); }
+      .policy-content p { margin-bottom: var(--space-md); color: var(--color-text-muted); }
+      .contact-box {
+        background: var(--color-surface-soft);
+        padding: var(--space-xl);
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--color-border);
+        margin-top: var(--space-xl);
+        text-align: center;
+      }
+      .contact-email {
+        display: block;
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin: var(--space-md) 0;
+        color: var(--color-primary);
+        text-decoration: none;
+      }
+    </style>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark' ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <a href="/" class="site-header__brand">
+            <span>Randomizer</span>
+          </a>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container">
+          <article class="policy-content">
+            <h1>Contact Us</h1>
+            <p>Have questions, feedback, or need to report a bug? We'd love to hear from you.</p>
+            
+            <div class="contact-box">
+              <p>Email us at:</p>
+              <a href="mailto:furoghost.work@gmail.com" class="contact-email">furoghost.work@gmail.com</a>
+              <p style="font-size: 0.875rem;">We typically respond within 24-48 hours.</p>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center;">
+                <a href="/" class="btn btn--primary">Back to Home</a>
+            </div>
+          </article>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="/src/pages/home.js"></script>
+  </body>
+</html>
