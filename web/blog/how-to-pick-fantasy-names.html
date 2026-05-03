@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Pick the Perfect Fantasy Name — Randomizer</title>
+    <meta name="description" content="Discover professional tips on naming your fantasy characters. From linguistic patterns to meaningful etymology." />
+    <link rel="stylesheet" href="/src/design-system/index.css" />
+    <style>
+      .post-content { max-width: 720px; margin: 0 auto; line-height: 1.8; }
+      .post-header { margin-bottom: var(--space-xl); text-align: center; }
+      .post-body h2 { margin-top: var(--space-xl); margin-bottom: var(--space-md); }
+      .post-body p { margin-bottom: var(--space-lg); color: var(--color-text-muted); font-size: 1.1rem; }
+      .post-body img { width: 100%; border-radius: var(--radius-lg); margin: var(--space-lg) 0; }
+    </style>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark' ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="site-header">
+        <div class="site-header__inner">
+          <a href="/" class="site-header__brand"><span>Randomizer</span></a>
+          <nav class="site-nav">
+            <a href="/tools/name-generator/">Names</a>
+            <a href="/blog/">Back to Blog</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container">
+          <article class="post-content">
+            <header class="post-header">
+              <div style="color: var(--color-primary); font-weight: 600; margin-bottom: var(--space-sm);">MAY 3, 2026 • 5 MIN READ</div>
+              <h1>How to Pick the Perfect Fantasy Name</h1>
+            </header>
+
+            <div class="post-body">
+              <p>Naming a character is one of the most exciting yet challenging parts of storytelling. A great name doesn't just label a character; it tells a story of its own. Whether you're a novelist, a tabletop RPG player, or a game developer, the right name can provide immediate depth to your creation.</p>
+
+              <h2>1. Consider the Cultural Phonology</h2>
+              <p>Before you start picking random syllables, think about the language of the culture your character comes from. Dwarves often have harsh, guttural sounds (like 'K' and 'D'), while Elves might favor flowing vowels and soft consonants ('L', 'N', 'S'). When using our <strong>Fantasy Name Generator</strong>, you can look for these patterns to find a name that fits your world's logic.</p>
+
+              <h2>2. Use Meaningful Etymology</h2>
+              <p>Many names in the real world are derived from professions, locations, or traits. "Smith" for a blacksmith, or "Rivera" for someone living by a river. In fantasy, you can use Latin or Old English roots to hint at a character's destiny without being too obvious.</p>
+
+              <h2>3. The "Coffee Shop" Test</h2>
+              <p>Can you pronounce the name out loud without stumbling? If a name has too many apostrophes or unpronounceable consonant clusters, your readers might skip over it. A good rule of thumb is: if you can't order a coffee with that name, it might be too complex.</p>
+
+              <h2>Conclusion</h2>
+              <p>Naming is an art, but tools like our <a href="/tools/name-generator/">Name Generator</a> can help spark that initial flame of inspiration. Don't be afraid to click "Generate" a few times until something clicks!</p>
+            </div>
+            
+            <div style="margin-top: 60px; padding: 40px; background: var(--color-surface-soft); border-radius: var(--radius-lg); text-align: center;">
+                <h3>Ready to find your character's name?</h3>
+                <p>Try our WASM-powered Name Generator today.</p>
+                <a href="/tools/name-generator/" class="btn btn--primary">Try Name Generator</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <footer class="site-footer">
+        <div class="site-footer__inner">
+          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/terms.html">Terms of Service</a>
+            <a href="/contact.html">Contact Us</a>
+            <span>© <span id="footer-year"></span> Randomizer</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/src/pages/home.js"></script>
+  </body>
+</html>
