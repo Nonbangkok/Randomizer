@@ -19,13 +19,6 @@ const root = document.querySelector('[data-password-generator]');
         e.preventDefault();
         tool.regenerate();
       }
-      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-        const copyBtn = root.querySelector('[data-pg-copy]');
-        if (copyBtn) {
-          e.preventDefault();
-          copyBtn.click();
-        }
-      }
     });
   } catch (err) {
     console.error('Generator failed to load', err);

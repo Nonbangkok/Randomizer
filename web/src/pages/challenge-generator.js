@@ -19,13 +19,6 @@ const root = document.querySelector('[data-challenge-generator]');
         e.preventDefault();
         tool.generate();
       }
-      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-        const copyBtn = root.querySelector('[data-cg-copy]');
-        if (copyBtn) {
-          e.preventDefault();
-          copyBtn.click();
-        }
-      }
     });
   } catch (err) {
     console.error('Generator failed to load', err);

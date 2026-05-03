@@ -19,13 +19,6 @@ const root = document.querySelector('[data-name-generator]');
         e.preventDefault();
         tool.generate();
       }
-      if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
-        const first = root.querySelector('[data-copy]');
-        if (first) {
-          e.preventDefault();
-          first.click();
-        }
-      }
     });
   } catch (err) {
     console.error('Generator failed to load', err);
