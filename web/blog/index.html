@@ -3,8 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog & Guides — Randomizer</title>
-    <meta name="description" content="Tips, guides, and inspiration for RPG players, game developers, and creative writers." />
+    <title>Blog — Insights, Guides & Tips | Randomizer</title>
+    <meta name="description" content="Explore our latest articles on name generation, security, productivity, and the science of randomness." />
+    <link rel="canonical" href="https://randomizer.app/blog/" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <link rel="stylesheet" href="/src/design-system/index.css" />
     <script>
       (function () {
@@ -20,49 +22,92 @@
     <div class="app-shell">
       <header class="site-header">
         <div class="site-header__inner">
-          <a href="/" class="site-header__brand" aria-label="Randomizer home">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" /><circle cx="8" cy="8" r="1.25" fill="currentColor" /><circle cx="16" cy="8" r="1.25" fill="currentColor" /><circle cx="8" cy="16" r="1.25" fill="currentColor" /><circle cx="16" cy="16" r="1.25" fill="currentColor" /><circle cx="12" cy="12" r="1.25" fill="currentColor" /></svg>
-            <span>Randomizer</span>
-          </a>
-          <nav class="site-nav" aria-label="Primary">
-            <a href="/tools/name-generator/">Names</a>
-            <a href="/tools/password-generator/">Passwords</a>
-            <a href="/blog/" aria-current="page">Blog</a>
-            <button id="theme-toggle" class="btn btn--ghost btn--icon" type="button" aria-label="Toggle color theme">
-              <svg data-theme-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2" /></svg>
-              <svg data-theme-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
-            </button>
-          </nav>
+          <a href="/" class="site-header__brand"><span>Randomizer</span></a>
+          <nav class="site-nav"><a href="/">Home</a><a href="/tools/name-generator/">Names</a><a href="/tools/password-generator/">Passwords</a></nav>
         </div>
       </header>
-
       <main class="main">
         <div class="container">
           <header style="margin-bottom: var(--space-xl);">
-            <h1>Blog & Guides</h1>
-            <p class="lead">Insights and tips to help you get the most out of our tools.</p>
+            <h1>Randomizer Blog</h1>
+            <p class="lead">Insights on security, gaming, and the power of randomness.</p>
           </header>
 
           <div class="tool-grid">
             <a href="/blog/how-to-pick-fantasy-names.html" class="tool-card">
-              <span class="tool-card__icon" aria-hidden="true">📜</span>
-              <div style="font-size: 0.875rem; color: var(--color-primary); margin-bottom: 4px;">GUIDE</div>
+              <span class="tool-card__icon">📜</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">GUIDE</div>
               <h2>How to Pick the Perfect Fantasy Name</h2>
-              <p>Learn the secrets of linguistic phonetics to create names that sound truly legendary.</p>
+              <p>Learn the secrets of linguistic phonetics to create legendary names.</p>
             </a>
+
             <a href="/blog/password-security-mistakes.html" class="tool-card">
-              <span class="tool-card__icon" aria-hidden="true">🔐</span>
-              <div style="font-size: 0.875rem; color: var(--color-primary); margin-bottom: 4px;">SECURITY</div>
-              <h2>5 Password Mistakes You're Probably Making</h2>
-              <p>Common password habits that put you at risk — and how to fix them right now.</p>
+              <span class="tool-card__icon">🔐</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">SECURITY</div>
+              <h2>5 Password Mistakes You're Making</h2>
+              <p>Common habits that put you at risk and how to fix them.</p>
+            </a>
+
+            <a href="/blog/conquer-game-backlog.html" class="tool-card">
+              <span class="tool-card__icon">🎮</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">GAMING</div>
+              <h2>Conquer Your Video Game Backlog</h2>
+              <p>Strategies to beat gaming paralysis and finish your library.</p>
+            </a>
+
+            <a href="/blog/rpg-character-development.html" class="tool-card">
+              <span class="tool-card__icon">🎭</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">ROLEPLAY</div>
+              <h2>RPG Character Development Guide</h2>
+              <p>Build deep, memorable characters from name to legend.</p>
+            </a>
+
+            <a href="/blog/cybersecurity-passwords-2026.html" class="tool-card">
+              <span class="tool-card__icon">🛡️</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">SECURITY</div>
+              <h2>Cybersecurity in 2026</h2>
+              <p>Why random passwords are your best defense in the AI age.</p>
+            </a>
+
+            <a href="/blog/game-jam-survival-guide.html" class="tool-card">
+              <span class="tool-card__icon">🕹️</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">DEV</div>
+              <h2>Game Jam Survival Guide</h2>
+              <p>Using constraints to boost your creative output.</p>
+            </a>
+
+            <a href="/blog/psychology-of-randomness.html" class="tool-card">
+              <span class="tool-card__icon">🧠</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">SCIENCE</div>
+              <h2>The Psychology of Randomness</h2>
+              <p>Why humans crave unpredictability and surprise.</p>
+            </a>
+
+            <a href="/blog/world-building-random-tables.html" class="tool-card">
+              <span class="tool-card__icon">🌍</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">RPG</div>
+              <h2>World-Building with Random Tables</h2>
+              <p>Efficient world-building tips for Dungeon Masters.</p>
+            </a>
+
+            <a href="/blog/browser-based-tools-privacy.html" class="tool-card">
+              <span class="tool-card__icon">💻</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">PRIVACY</div>
+              <h2>Why Browser-Based Tools are Safer</h2>
+              <p>The privacy benefits of 100% local processing.</p>
+            </a>
+
+            <a href="/blog/gamifying-productivity.html" class="tool-card">
+              <span class="tool-card__icon">🚀</span>
+              <div style="font-size: 0.875rem; color: var(--color-primary);">PRODUCTIVITY</div>
+              <h2>Gamifying Your Productivity</h2>
+              <p>Turn your boring tasks into an engaging quest.</p>
             </a>
           </div>
         </div>
       </main>
-
       <footer class="site-footer">
         <div class="site-footer__inner">
-          <span>🔒 All processing happens in your browser.</span>
           <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
             <a href="/privacy-policy.html">Privacy Policy</a>
             <a href="/terms.html">Terms of Service</a>
