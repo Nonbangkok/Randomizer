@@ -20,8 +20,12 @@ export function injectHeader({ activePage = '' } = {}) {
   slot.outerHTML = `<header class="site-header"><div class="site-header__inner"><a href="/" class="site-header__brand" aria-label="Randomizer home">${BRAND_SVG}<span>Randomizer</span></a><nav class="site-nav" aria-label="Primary">${links}${THEME_TOGGLE}</nav></div></header>`;
 }
 
+const BMC_URL = 'https://www.buymeacoffee.com/nonbangkok';
+
+const COFFEE_BUTTON = `<a class="bmc" href="${BMC_URL}" target="_blank" rel="noopener noreferrer" aria-label="Support Randomizer on Buy Me a Coffee"><span class="bmc__cup" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M17 8h1a4 4 0 0 1 0 8h-1" /><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z" /></svg><span class="bmc__steam"></span><span class="bmc__steam"></span><span class="bmc__steam"></span></span><span class="bmc__label">Buy me a coffee</span></a>`;
+
 export function injectFooter() {
   const slot = document.querySelector('[data-footer]');
   if (!slot) return;
-  slot.outerHTML = `<footer class="site-footer"><div class="site-footer__inner"><span>🔒 All processing happens in your browser.</span><div class="site-footer__links"><a href="/privacy-policy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a><a href="/contact.html">Contact Us</a><span>© <span id="footer-year"></span> Randomizer</span></div></div></footer>`;
+  slot.outerHTML = `<footer class="site-footer"><div class="site-footer__inner"><span class="site-footer__lead">🔒 All processing happens in your browser.</span>${COFFEE_BUTTON}<div class="site-footer__links"><a href="/privacy-policy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a><a href="/contact.html">Contact Us</a><span>© <span id="footer-year"></span> Randomizer</span></div></div></footer>`;
 }

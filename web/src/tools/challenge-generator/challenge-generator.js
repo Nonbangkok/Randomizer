@@ -1,5 +1,10 @@
 import { showToast } from '../../lib/toast.js';
+import { makeId, pushHistory, toggleFavorite } from '../../lib/storage.js';
+import { mountHistoryPanel, favoriteButton } from '../../lib/history-panel.js';
+import { readParams, writeParams, copyShareLink, randomSeed, shareButtonHtml } from '../../lib/share.js';
+import { mountAd } from '../../lib/ads.js';
 
+const TOOL = 'challenge-generator';
 let wasmGenerate;
 export function setGenerator(fn) { wasmGenerate = fn; }
 
@@ -10,28 +15,82 @@ export function mountChallengeGenerator(root) {
   const list = root.querySelector('[data-cg-list]');
   const status = root.querySelector('[data-cg-status]');
 
+  let activeSeed = null;
+
   function readConfig() {
     const fd = new FormData(form);
     return {
       game: fd.get('game'),
       difficulty: fd.get('difficulty'),
       count: Number(fd.get('count')) || 5,
-      seed: null,
+      seed: activeSeed,
     };
   }
+
+  function hydrateFromUrl() {
+    const p = readParams();
+    for (const name of ['game', 'difficulty']) {
+      const v = p.get(name);
+      if (v) {
+        const radio = form.querySelector(`input[name="${name}"][value="${cssEscape(v)}"]`);
+        if (radio) radio.checked = true;
+      }
+    }
+    const count = p.get('count');
+    if (count && form.querySelector(`option[value="${cssEscape(count)}"]`)) {
+      form.querySelector('select[name="count"]').value = count;
+    }
+    const seed = parseInt(p.get('seed'), 10);
+    if (Number.isFinite(seed) && seed > 0) activeSeed = seed;
+  }
+
+  function syncUrl() {
+    const fd = new FormData(form);
+    writeParams({
+      game: fd.get('game'),
+      difficulty: fd.get('difficulty'),
+      count: fd.get('count'),
+      seed: activeSeed || null,
+    });
+  }
+
+  hydrateFromUrl();
 
   function render(rules) {
     if (!rules.length) {
       list.innerHTML = `<p class="cg-empty">No rules generated.</p>`;
       return;
     }
-    list.innerHTML = rules.map((r, i) => `
-      <li class="cg-rule" style="--i:${i}">
+    list.innerHTML = rules.map((r, i) => {
+      const value = `[${r.category}] ${r.text}`;
+      const entry = { id: makeId(value), value, label: r.text, meta: { category: r.category } };
+      return `
+      <li class="cg-rule" style="--i:${i}" data-entry-id="${entry.id}" data-entry-value="${escapeHtml(value)}" data-entry-label="${escapeHtml(r.text)}" data-entry-category="${escapeHtml(r.category)}">
         <span class="badge">${escapeHtml(r.category)}</span>
         <span class="cg-rule__text">${escapeHtml(r.text)}</span>
+        ${favoriteButton(TOOL, entry)}
       </li>
-    `).join('');
+    `;
+    }).join('');
   }
+
+  list.addEventListener('click', (e) => {
+    const favBtn = e.target.closest('[data-fav-id]');
+    if (!favBtn) return;
+    const li = favBtn.closest('[data-entry-id]');
+    if (!li) return;
+    const entry = {
+      id: li.dataset.entryId,
+      value: li.dataset.entryValue,
+      label: li.dataset.entryLabel,
+      meta: { category: li.dataset.entryCategory },
+    };
+    const nowFav = toggleFavorite(TOOL, entry);
+    if (nowFav) pushHistory(TOOL, entry);
+    favBtn.classList.toggle('is-on', nowFav);
+    favBtn.setAttribute('aria-pressed', String(nowFav));
+    favBtn.querySelector('svg')?.setAttribute('fill', nowFav ? 'currentColor' : 'none');
+  });
 
   function generate() {
     if (!wasmGenerate) return;
@@ -46,8 +105,19 @@ export function mountChallengeGenerator(root) {
     }
   }
 
-  form.addEventListener('submit', (e) => { e.preventDefault(); generate(); });
-  form.addEventListener('change', () => { if (list.children.length) generate(); });
+  // User-driven config changes invalidate the locked seed (otherwise stale).
+  form.addEventListener('change', () => { activeSeed = null; syncUrl(); if (list.children.length) generate(); });
+  form.addEventListener('submit', (e) => { e.preventDefault(); activeSeed = null; syncUrl(); generate(); });
+
+  const shareBtn = root.querySelector('[data-share-btn]');
+  shareBtn.addEventListener('click', () => {
+    if (activeSeed == null) {
+      activeSeed = randomSeed();
+      generate();
+    }
+    syncUrl();
+    copyShareLink();
+  });
 
   const copyAllBtn = root.querySelector('[data-cg-copy]');
   copyAllBtn.addEventListener('click', async () => {
@@ -56,6 +126,16 @@ export function mountChallengeGenerator(root) {
       .join('\n');
     if (!text) return;
     try { await navigator.clipboard.writeText(text); showToast('Copied'); } catch { showToast('Copy failed'); }
+  });
+
+  mountAd(root.querySelector('[data-ad-slot="cg-leaderboard"]'), { format: 'leaderboard' });
+
+  const panel = root.querySelector('[data-cg-history]');
+  mountHistoryPanel(panel, {
+    tool: TOOL,
+    title: 'Challenge history',
+    renderValue: (e) => `<span class="badge">${escapeHtml(e.meta?.category || '—')}</span> ${escapeHtml(e.label || e.value)}`,
+    copyText: (e) => e.label || e.value,
   });
 
   return { generate };
@@ -108,14 +188,21 @@ function template() {
           </svg>
           Copy all
         </button>
+        ${shareButtonHtml({ label: 'Share' })}
         <span class="cg-status" data-cg-status aria-live="polite"></span>
       </div>
 
+      <div data-ad-slot="cg-leaderboard"></div>
+
       <ol class="cg-list" data-cg-list></ol>
     </form>
+    <div data-cg-history></div>
   `;
 }
 
 function escapeHtml(s) {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function cssEscape(s) {
+  return String(s).replace(/[^a-zA-Z0-9_-]/g, '');
 }

@@ -3,6 +3,8 @@
 @import './base.css';
 @import './layout.css';
 @import './components.css';
+@import '../lib/history-panel.css';
+@import '../lib/ads.css';
 @import './blog.css';
 @import './policy.css';
 @import '../tools/name-generator/name-generator.css';

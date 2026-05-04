@@ -13,6 +13,9 @@ const root = document.querySelector('[data-password-generator]');
     const tool = mountPasswordGenerator(root);
     tool.regenerate();
 
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+
     document.addEventListener('keydown', (e) => {
       if (e.target.matches('input, textarea, select')) return;
       if (e.code === 'Space' || e.key === 'Enter') {

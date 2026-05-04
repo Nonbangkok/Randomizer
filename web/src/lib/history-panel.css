@@ -1,0 +1,121 @@
+.history-panel {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.hp-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-md);
+}
+
+.hp-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  margin-right: auto;
+}
+
+.hp-tabs {
+  display: inline-flex;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 2px;
+  gap: 2px;
+}
+
+.hp-tab {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0.35rem 0.85rem;
+  font: inherit;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+.hp-tab:hover { color: var(--color-text); }
+.hp-tab.is-active {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.hp-clear {
+  font-size: 0.8rem;
+}
+
+.btn--sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+}
+
+.hp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.hp-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  animation: hp-fade-in 200ms var(--ease-out);
+}
+
+.hp-item__value {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.92rem;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+.hp-item__actions {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.hp-empty {
+  margin: 0;
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.hp-fav {
+  color: var(--color-muted);
+  transition: color var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+.hp-fav:hover { color: hsl(348 83% 60%); }
+.hp-fav.is-on { color: hsl(348 83% 55%); }
+.hp-fav.is-on:active { transform: scale(0.9); }
+
+@keyframes hp-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hp-item { animation: none; }
+}

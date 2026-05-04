@@ -41,28 +41,19 @@
     <link rel="preload" href="/pkg/wasm_bridge_bg.wasm" as="fetch" crossorigin="anonymous" />
 
     <style>
-      :root {
-        --color-bg: hsl(0 0% 99%);
-        --color-surface: hsl(0 0% 96%);
-        --color-text: hsl(0 0% 12%);
-        --color-accent: hsl(234 89% 63%);
-        --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      }
-      [data-theme='dark'] {
-        --color-bg: hsl(0 0% 8%);
-        --color-surface: hsl(0 0% 12%);
-        --color-text: hsl(0 0% 92%);
-      }
-      body {
-        margin: 0;
-        font-family: var(--font-sans);
-        background: var(--color-bg);
-        color: var(--color-text);
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      .app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+      *,::before,::after{box-sizing:border-box;margin:0;padding:0}
+      :root{--color-bg:hsl(0 0% 99%);--color-surface:hsl(0 0% 96%);--color-text:hsl(0 0% 12%);--color-muted:hsl(0 0% 40%);--color-primary:hsl(234 89% 63%);--color-primary-soft:hsl(234 89% 96%);--color-border:hsl(0 0% 88%);--space-sm:8px;--space-md:16px;--space-lg:24px;--radius-md:10px;--header-h:64px;font-family:'Inter',system-ui,sans-serif}
+      [data-theme=dark]{--color-bg:hsl(0 0% 8%);--color-surface:hsl(0 0% 12%);--color-text:hsl(0 0% 92%);--color-muted:hsl(0 0% 60%);--color-border:hsl(0 0% 20%);--color-primary-soft:hsl(234 40% 18%);--color-primary:hsl(234 89% 78%)}
+      body{background:var(--color-bg);color:var(--color-text);min-height:100vh}
+      .app-shell{display:flex;flex-direction:column;min-height:100vh}
+      .site-header{position:sticky;top:0;z-index:100;height:var(--header-h);background:var(--color-bg);border-bottom:1px solid var(--color-border);display:flex;align-items:center}
+      .site-header__inner{width:100%;max-width:64rem;margin:0 auto;padding:0 var(--space-lg);display:flex;align-items:center;justify-content:space-between}
+      .site-header__brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;color:var(--color-text);text-decoration:none}
+      .site-header__brand svg{width:28px;height:28px;color:var(--color-primary)}
+      .site-nav{display:flex;align-items:center;gap:4px}
+      .site-nav a{padding:.4rem .85rem;border-radius:var(--radius-md);font-size:.9rem;font-weight:500;color:var(--color-muted);text-decoration:none}
+      .main{flex:1;padding:var(--space-2xl) 0}
+      .container{max-width:64rem;margin:0 auto;padding:0 var(--space-lg)}
     </style>
 
     <script>

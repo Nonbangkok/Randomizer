@@ -43,6 +43,20 @@ export function wireShell({ activePage = '' } = {}) {
 
   // Fallback: load after 6 seconds even without interaction
   setTimeout(() => { removeListeners(); loadGAOnce(); }, 6000);
+
+  registerServiceWorker();
+}
+
+function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  // Skip in dev (vite serves from /, but no SW served + HMR doesn't play well with SW caching).
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
+
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch((err) => {
+      console.warn('SW registration failed', err);
+    });
+  });
 }
 
 function syncThemeIcons() {

@@ -13,6 +13,12 @@ const root = document.querySelector('[data-challenge-generator]');
     const tool = mountChallengeGenerator(root);
     tool.generate();
 
+    // Reveal main content and hide loader
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
+
+    trackEvent('generate_challenge', { tool: 'challenge-generator', trigger: 'pageload' });
+
     document.addEventListener('keydown', (e) => {
       if (e.target.matches('input, textarea, select')) return;
       if (e.code === 'Space' || e.key === 'Enter') {

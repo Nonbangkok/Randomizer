@@ -78,6 +78,93 @@
   transform: translateX(-50%) translateY(0);
 }
 
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl) var(--space-md);
+  min-height: 280px;
+  text-align: center;
+}
+
+.loader__stage {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  animation: loader-spin 1.2s linear infinite;
+}
+.loader__ring--inner {
+  inset: 14px;
+  border-color: transparent;
+  border-right-color: var(--color-accent);
+  opacity: 0.55;
+  animation-duration: 1.8s;
+  animation-direction: reverse;
+}
+
+.loader__logo {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  color: var(--color-accent);
+  animation: loader-breath 2.4s var(--ease-out) infinite;
+}
+
+.loader__dot {
+  fill: currentColor;
+  opacity: 0.25;
+  transform-origin: center;
+  animation: loader-dot 1.6s var(--ease-out) infinite;
+}
+.loader__dot--1 { animation-delay: 0s; }
+.loader__dot--2 { animation-delay: 0.12s; }
+.loader__dot--3 { animation-delay: 0.24s; }
+.loader__dot--4 { animation-delay: 0.36s; }
+.loader__dot--5 { animation-delay: 0.48s; }
+
+.loader__text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@keyframes loader-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes loader-breath {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+@keyframes loader-dot {
+  0%, 100% { opacity: 0.25; transform: scale(0.85); }
+  40%      { opacity: 1;    transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader__ring,
+  .loader__logo,
+  .loader__dot {
+    animation: none;
+  }
+  .loader__dot { opacity: 1; }
+  .loader__ring { border-top-color: var(--color-accent); }
+}
+
 .lead {
   font-size: 1.05rem;
   color: var(--color-muted);

@@ -77,6 +77,12 @@
   font-weight: 500;
   word-break: break-word;
 }
+.ng-card__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-shrink: 0;
+}
 
 .ng-empty {
   grid-column: 1 / -1;

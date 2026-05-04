@@ -1,5 +1,11 @@
 import { showToast } from '../../lib/toast.js';
+import { makeId, pushHistory, toggleFavorite } from '../../lib/storage.js';
+import { mountHistoryPanel, favoriteButton } from '../../lib/history-panel.js';
+import { readParams, writeParams, copyShareLink, shareButtonHtml } from '../../lib/share.js';
+import { mountAd } from '../../lib/ads.js';
 
+const TOOL = 'name-generator';
+const SHARE_KEYS = ['genre', 'language', 'method', 'seed', 'descriptor'];
 let wasmGenerate;
 
 export function setGenerator(fn) {
@@ -21,6 +27,44 @@ export function mountNameGenerator(root) {
   }
   methodSelect.addEventListener('change', syncSeedVisibility);
   syncSeedVisibility();
+
+  hydrateFromUrl();
+  syncSeedVisibility();
+
+  function hydrateFromUrl() {
+    const p = readParams();
+    if (!SHARE_KEYS.some((k) => p.has(k))) return;
+    for (const name of ['genre', 'language']) {
+      const v = p.get(name);
+      if (v) {
+        const radio = form.querySelector(`input[name="${name}"][value="${cssEscape(v)}"]`);
+        if (radio) radio.checked = true;
+      }
+    }
+    const method = p.get('method');
+    if (method && [...methodSelect.options].some((o) => o.value === method)) {
+      methodSelect.value = method;
+    }
+    const seed = p.get('seed');
+    if (seed) seedInput.value = seed;
+    const desc = p.get('descriptor');
+    if (desc === '1' || desc === 'on' || desc === 'true') {
+      const cb = form.querySelector('input[name="descriptor"]');
+      if (cb) cb.checked = true;
+    }
+  }
+
+  function syncUrl() {
+    const fd = new FormData(form);
+    const updates = {
+      genre: fd.get('genre'),
+      language: fd.get('language'),
+      method: fd.get('method'),
+      seed: fd.get('method') === 'seeded' ? (fd.get('seed') || '') : null,
+      descriptor: fd.get('descriptor') === 'on' ? '1' : null,
+    };
+    writeParams(updates);
+  }
 
   function readConfig() {
     const fd = new FormData(form);
@@ -55,27 +99,48 @@ export function mountNameGenerator(root) {
       grid.innerHTML = `<p class="ng-empty">No names generated. Try different settings.</p>`;
       return;
     }
-    grid.innerHTML = names.map((n, i) => `
-      <article class="ng-card" style="--i:${i}">
+    grid.innerHTML = names.map((n, i) => {
+      const entry = { id: makeId(n), value: n };
+      return `
+      <article class="ng-card" style="--i:${i}" data-entry-id="${entry.id}" data-entry-value="${escapeHtml(n)}">
         <span class="ng-card__name">${escapeHtml(n)}</span>
+        <span class="ng-card__actions">
+        ${favoriteButton(TOOL, entry)}
         <button class="btn btn--ghost btn--icon" data-copy="${escapeHtml(n)}" aria-label="Copy ${escapeHtml(n)}" title="Copy">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true">
             <rect x="9" y="9" width="13" height="13" rx="2" />
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
           </svg>
         </button>
+        </span>
       </article>
-    `).join('');
+    `;
+    }).join('');
   }
 
   grid.addEventListener('click', async (e) => {
-    const btn = e.target.closest('[data-copy]');
-    if (!btn) return;
-    try {
-      await navigator.clipboard.writeText(btn.dataset.copy);
-      showToast('Copied');
-    } catch {
-      showToast('Copy failed');
+    const card = e.target.closest('[data-entry-id]');
+    if (!card) return;
+    const entry = { id: card.dataset.entryId, value: card.dataset.entryValue };
+
+    if (e.target.closest('[data-copy]')) {
+      try {
+        await navigator.clipboard.writeText(entry.value);
+        pushHistory(TOOL, entry);
+        showToast('Copied');
+      } catch {
+        showToast('Copy failed');
+      }
+      return;
+    }
+
+    const favBtn = e.target.closest('[data-fav-id]');
+    if (favBtn) {
+      const nowFav = toggleFavorite(TOOL, entry);
+      if (nowFav) pushHistory(TOOL, entry);
+      favBtn.classList.toggle('is-on', nowFav);
+      favBtn.setAttribute('aria-pressed', String(nowFav));
+      favBtn.querySelector('svg')?.setAttribute('fill', nowFav ? 'currentColor' : 'none');
     }
   });
 
@@ -97,7 +162,16 @@ export function mountNameGenerator(root) {
   }
 
   form.addEventListener('submit', (e) => { e.preventDefault(); generate(); });
-  form.addEventListener('change', () => { if (grid.children.length) generate(); });
+  form.addEventListener('change', () => { syncUrl(); if (grid.children.length) generate(); });
+  form.addEventListener('input', (e) => { if (e.target === seedInput) syncUrl(); });
+
+  const shareBtn = root.querySelector('[data-share-btn]');
+  shareBtn.addEventListener('click', () => { syncUrl(); copyShareLink(); });
+
+  mountAd(root.querySelector('[data-ad-slot="ng-leaderboard"]'), { format: 'leaderboard' });
+
+  const panel = root.querySelector('[data-ng-history]');
+  mountHistoryPanel(panel, { tool: TOOL, title: 'Names history' });
 
   return { generate };
 }
@@ -151,16 +225,24 @@ function template() {
           </svg>
           Generate
         </button>
+        ${shareButtonHtml({ label: 'Share' })}
         <span class="ng-status" data-ng-status aria-live="polite"></span>
       </div>
 
+      <div data-ad-slot="ng-leaderboard"></div>
+
       <div class="ng-results" data-ng-results></div>
     </form>
+    <div data-ng-history></div>
   `;
 }
 
 function escapeHtml(s) {
   return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function cssEscape(s) {
+  return String(s).replace(/[^a-zA-Z0-9_-]/g, '');
 }
 
 function hashSeed(input) {

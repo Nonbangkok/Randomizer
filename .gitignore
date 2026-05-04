@@ -11,6 +11,7 @@ dist/
 IMPLEMENTATION_PLAN.md
 TECHNICAL_PLAN.md
 IDEA.md
+FUTURE_PLAN.md
 
 # Wrangler cache
 .wrangler/

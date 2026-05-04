@@ -1,6 +1,12 @@
 import { showToast } from '../../lib/toast.js';
+import { makeId, pushHistory, toggleFavorite } from '../../lib/storage.js';
+import { mountHistoryPanel, favoriteButton } from '../../lib/history-panel.js';
+import { readParams, writeParams, copyShareLink, encodeText, decodeText, shareButtonHtml } from '../../lib/share.js';
+import { mountAd } from '../../lib/ads.js';
 
+const TOOL = 'backlog-wheel';
 const STORAGE_KEY = 'randomizer:backlog';
+const URL_LIST_LIMIT = 6000; // skip URL sync past this length to keep URLs sane
 
 export function mountBacklogWheel(root) {
   root.innerHTML = template();
@@ -9,14 +15,29 @@ export function mountBacklogWheel(root) {
   const spinBtn = root.querySelector('[data-bw-spin]');
   const result = root.querySelector('[data-bw-result]');
   const count = root.querySelector('[data-bw-count]');
+  const favSlot = root.querySelector('[data-bw-fav-slot]');
 
-  textarea.value = load();
+  // URL list takes precedence over local storage when present.
+  const urlList = decodeText(readParams().get('list'));
+  textarea.value = urlList || load();
   updateCount();
+  if (urlList) save(textarea.value);
 
   textarea.addEventListener('input', () => {
     save(textarea.value);
+    syncUrl();
     updateCount();
   });
+
+  function syncUrl() {
+    const text = textarea.value.trim();
+    const encoded = encodeText(text);
+    if (encoded.length > URL_LIST_LIMIT) {
+      writeParams({ list: null });
+    } else {
+      writeParams({ list: encoded || null });
+    }
+  }
 
   function items() {
     return textarea.value.split('\n').map(s => s.trim()).filter(Boolean);
@@ -62,10 +83,53 @@ export function mountBacklogWheel(root) {
     result.classList.add('is-revealed');
     setTimeout(() => result.classList.remove('is-revealed'), 600);
 
+    const entry = { id: makeId(target), value: target };
+    pushHistory(TOOL, entry);
+    favSlot.innerHTML = favoriteButton(TOOL, entry);
+
     try { await navigator.clipboard.writeText(target); showToast('Copied to clipboard'); } catch {}
 
     spinning = false;
     spinBtn.disabled = list.length < 2;
+  });
+
+  favSlot.addEventListener('click', (e) => {
+    const favBtn = e.target.closest('[data-fav-id]');
+    if (!favBtn) return;
+    const value = result.textContent;
+    if (!value || value === '—') return;
+    const entry = { id: makeId(value), value };
+    const nowFav = toggleFavorite(TOOL, entry);
+    if (nowFav) pushHistory(TOOL, entry);
+    favBtn.classList.toggle('is-on', nowFav);
+    favBtn.setAttribute('aria-pressed', String(nowFav));
+    favBtn.querySelector('svg')?.setAttribute('fill', nowFav ? 'currentColor' : 'none');
+  });
+
+  const shareBtn = root.querySelector('[data-share-btn]');
+  shareBtn.addEventListener('click', () => {
+    syncUrl();
+    const encoded = encodeText(textarea.value.trim());
+    if (encoded.length > URL_LIST_LIMIT) {
+      showToast('List too long to share via URL');
+      return;
+    }
+    copyShareLink();
+  });
+
+  // Reflect initial state into the URL when hydrated from URL (no-op otherwise).
+  if (urlList) syncUrl();
+
+  mountAd(root.querySelector('[data-ad-slot="bw-leaderboard"]'), { format: 'leaderboard' });
+
+  const panel = root.querySelector('[data-bw-history]');
+  mountHistoryPanel(panel, {
+    tool: TOOL,
+    title: 'Spin history',
+    onUse: (entry) => {
+      result.textContent = entry.value;
+      favSlot.innerHTML = favoriteButton(TOOL, entry);
+    },
   });
 
   return {};
@@ -90,6 +154,8 @@ function template() {
           </svg>
           Spin
         </button>
+        <span class="bw-fav-slot" data-bw-fav-slot></span>
+        ${shareButtonHtml({ label: 'Share list' })}
         <span class="bw-count" data-bw-count>—</span>
       </div>
       <label class="bw-field">
@@ -97,6 +163,8 @@ function template() {
         <textarea class="input bw-textarea" rows="8" data-bw-input placeholder="Game 1&#10;Game 2&#10;Game 3"></textarea>
       </label>
       <p class="bw-hint">Saved locally to your browser. Press the button to pick one at random.</p>
+      <div data-ad-slot="bw-leaderboard"></div>
+      <div data-bw-history></div>
     </div>
   `;
 }
