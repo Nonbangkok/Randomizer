@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
     <title>Why Browser-Based Tools are Safer for Your Data Privacy — Randomizer</title>
     <meta name="description" content="Learn the advantages of local browser-based tools. Discover why tools that run entirely in your browser without server uploads are the gold standard for modern privacy." />
     <link rel="canonical" href="https://randomizer.app/blog/browser-based-tools-privacy.html" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -19,12 +24,21 @@
         "url": "https://randomizer.app/blog/browser-based-tools-privacy.html"
       }
     </script>
-    <link rel="stylesheet" href="/src/design-system/index.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
     <script>
       (function () {
         try {
           var stored = localStorage.getItem('randomizer:theme');
-          var theme = stored === 'light' || stored === 'dark' ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.setAttribute('data-theme', theme);
         } catch (e) {}
       })();
@@ -32,22 +46,19 @@
   </head>
   <body>
     <div class="app-shell">
-      <header class="site-header">
-        <div class="site-header__inner">
-          <a href="/" class="site-header__brand"><span>Randomizer</span></a>
-          <nav class="site-nav"><a href="/tools/password-generator/">Passwords</a><a href="/blog/">Back to Blog</a></nav>
-        </div>
-      </header>
+      <div data-header></div>
+
       <main class="main">
         <div class="container">
-          <article style="max-width: 720px; margin: 0 auto; line-height: 1.8;">
-            <header style="margin-bottom: var(--space-xl); text-align: center;">
-              <div style="color: var(--color-primary); font-weight: 600; margin-bottom: var(--space-sm);">MAY 4, 2026 • 5 MIN READ</div>
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-post__meta">MAY 4, 2026 • 5 MIN READ</span>
               <h1>Why Browser-Based Tools are Safer for Your Data Privacy</h1>
             </header>
-            <div class="post-body">
-              <p>In an age where data breaches are daily news, where you process your sensitive information matters more than ever. Traditionally, web tools send your data to a remote server, process it, and send the result back. But there is a better, safer way: **Client-Side Browser-Based Tools**.</p>
-              
+
+            <div class="blog-post__body">
+              <p>In an age where data breaches are daily news, where you process your sensitive information matters more than ever. Traditionally, web tools send your data to a remote server, process it, and send the result back. But there is a better, safer way: <strong>Client-Side Browser-Based Tools</strong>.</p>
+
               <h2>What is Client-Side Processing?</h2>
               <p>Client-side processing means the code for the tool is downloaded once to your computer (the "client") and then runs entirely within your browser's memory. No data is sent back to the developer or any third-party server. When you generate a password or a list of names on a client-side site, that information exists only on your device.</p>
 
@@ -57,7 +68,8 @@
               <h2>Conclusion</h2>
               <p>Privacy isn't just about policies; it's about architecture. By choosing tools that run entirely in your browser, you remove the "middleman" from your digital security equation.</p>
             </div>
-            <div style="margin-top: 60px; padding: 40px; background: var(--color-surface); border-radius: var(--radius-lg); text-align: center;">
+
+            <div class="blog-post__cta">
               <h3>Privacy by Design</h3>
               <p>Try our 100% private, browser-based tools today.</p>
               <a href="/" class="btn btn--primary">Explore Our Tools</a>
@@ -65,17 +77,9 @@
           </article>
         </div>
       </main>
-      <footer class="site-footer">
-        <div class="site-footer__inner">
-          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
-            <a href="/privacy-policy.html">Privacy Policy</a>
-            <a href="/terms.html">Terms of Service</a>
-            <a href="/contact.html">Contact Us</a>
-            <span>© <span id="footer-year"></span> Randomizer</span>
-          </div>
-        </div>
-      </footer>
+
+      <div data-footer></div>
     </div>
-    <script type="module" src="/src/pages/home.js"></script>
+    <script type="module" src="/src/pages/blog-post.js"></script>
   </body>
 </html>

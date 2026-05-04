@@ -2,7 +2,7 @@ import '../design-system/index.css';
 import { wireShell } from '../lib/shell.js';
 import { mountBacklogWheel } from '../tools/backlog-wheel/backlog-wheel.js';
 
-wireShell();
+wireShell({ activePage: 'backlog' });
 
 const root = document.querySelector('[data-backlog-wheel]');
 mountBacklogWheel(root);

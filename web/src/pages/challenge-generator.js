@@ -2,7 +2,7 @@ import '../design-system/index.css';
 import { wireShell, loadWasm } from '../lib/shell.js';
 import { mountChallengeGenerator, setGenerator } from '../tools/challenge-generator/challenge-generator.js';
 
-wireShell();
+wireShell({ activePage: 'challenges' });
 
 const root = document.querySelector('[data-challenge-generator]');
 

@@ -2,7 +2,7 @@ import '../design-system/index.css';
 import { wireShell, loadWasm } from '../lib/shell.js';
 import { mountPasswordGenerator, setBackends } from '../tools/password-generator/password-generator.js';
 
-wireShell();
+wireShell({ activePage: 'passwords' });
 
 const root = document.querySelector('[data-password-generator]');
 

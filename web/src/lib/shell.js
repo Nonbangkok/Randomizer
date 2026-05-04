@@ -1,7 +1,11 @@
 import { toggleTheme } from './theme.js';
 import { initGA } from './analytics.js';
+import { injectHeader, injectFooter } from './layout.js';
 
-export function wireShell() {
+export function wireShell({ activePage = '' } = {}) {
+  injectHeader({ activePage });
+  injectFooter();
+
   // Defer GA initialization to reduce TBT
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(() => initGA());

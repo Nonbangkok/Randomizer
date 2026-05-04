@@ -3,21 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
     <title>How to Pick the Perfect Fantasy Name — Randomizer</title>
     <meta name="description" content="Discover professional tips on naming your fantasy characters. From linguistic patterns to meaningful etymology." />
-    <link rel="stylesheet" href="/src/design-system/index.css" />
-    <style>
-      .post-content { max-width: 720px; margin: 0 auto; line-height: 1.8; }
-      .post-header { margin-bottom: var(--space-xl); text-align: center; }
-      .post-body h2 { margin-top: var(--space-xl); margin-bottom: var(--space-md); }
-      .post-body p { margin-bottom: var(--space-lg); color: var(--color-text-muted); font-size: 1.1rem; }
-      .post-body img { width: 100%; border-radius: var(--radius-lg); margin: var(--space-lg) 0; }
-    </style>
+    <link rel="canonical" href="https://randomizer.app/blog/how-to-pick-fantasy-names.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
     <script>
       (function () {
         try {
           var stored = localStorage.getItem('randomizer:theme');
-          var theme = stored === 'light' || stored === 'dark' ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.setAttribute('data-theme', theme);
         } catch (e) {}
       })();
@@ -25,25 +33,17 @@
   </head>
   <body>
     <div class="app-shell">
-      <header class="site-header">
-        <div class="site-header__inner">
-          <a href="/" class="site-header__brand"><span>Randomizer</span></a>
-          <nav class="site-nav">
-            <a href="/tools/name-generator/">Names</a>
-            <a href="/blog/">Back to Blog</a>
-          </nav>
-        </div>
-      </header>
+      <div data-header></div>
 
       <main class="main">
         <div class="container">
-          <article class="post-content">
-            <header class="post-header">
-              <div style="color: var(--color-primary); font-weight: 600; margin-bottom: var(--space-sm);">MAY 3, 2026 • 5 MIN READ</div>
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-post__meta">MAY 3, 2026 • 5 MIN READ</span>
               <h1>How to Pick the Perfect Fantasy Name</h1>
             </header>
 
-            <div class="post-body">
+            <div class="blog-post__body">
               <p>Naming a character is one of the most exciting yet challenging parts of storytelling. A great name doesn't just label a character; it tells a story of its own. Whether you're a novelist, a tabletop RPG player, or a game developer, the right name can provide immediate depth to your creation.</p>
 
               <h2>1. Consider the Cultural Phonology</h2>
@@ -58,27 +58,18 @@
               <h2>Conclusion</h2>
               <p>Naming is an art, but tools like our <a href="/tools/name-generator/">Name Generator</a> can help spark that initial flame of inspiration. Don't be afraid to click "Generate" a few times until something clicks!</p>
             </div>
-            
-            <div style="margin-top: 60px; padding: 40px; background: var(--color-surface-soft); border-radius: var(--radius-lg); text-align: center;">
-                <h3>Ready to find your character's name?</h3>
-                <p>Try our WASM-powered Name Generator today.</p>
-                <a href="/tools/name-generator/" class="btn btn--primary">Try Name Generator</a>
+
+            <div class="blog-post__cta">
+              <h3>Ready to find your character's name?</h3>
+              <p>Try our WASM-powered Name Generator today.</p>
+              <a href="/tools/name-generator/" class="btn btn--primary">Try Name Generator</a>
             </div>
           </article>
         </div>
       </main>
 
-      <footer class="site-footer">
-        <div class="site-footer__inner">
-          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
-            <a href="/privacy-policy.html">Privacy Policy</a>
-            <a href="/terms.html">Terms of Service</a>
-            <a href="/contact.html">Contact Us</a>
-            <span>© <span id="footer-year"></span> Randomizer</span>
-          </div>
-        </div>
-      </footer>
+      <div data-footer></div>
     </div>
-    <script type="module" src="/src/pages/home.js"></script>
+    <script type="module" src="/src/pages/blog-post.js"></script>
   </body>
 </html>

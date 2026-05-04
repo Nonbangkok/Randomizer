@@ -3,7 +3,7 @@ import { wireShell, loadWasm } from '../lib/shell.js';
 import { mountNameGenerator, setGenerator } from '../tools/name-generator/name-generator.js';
 import { trackEvent } from '../lib/analytics.js';
 
-wireShell();
+wireShell({ activePage: 'names' });
 
 const root = document.querySelector('[data-name-generator]');
 

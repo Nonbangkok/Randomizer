@@ -3,5 +3,7 @@
 @import './base.css';
 @import './layout.css';
 @import './components.css';
+@import './blog.css';
+@import './policy.css';
 @import '../tools/name-generator/name-generator.css';
 @import '../tools/password-generator/password-generator.css';

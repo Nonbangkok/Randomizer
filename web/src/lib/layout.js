@@ -1,0 +1,27 @@
+const NAV_ITEMS = [
+  { key: 'names', href: '/tools/name-generator/', label: 'Names' },
+  { key: 'passwords', href: '/tools/password-generator/', label: 'Passwords' },
+  { key: 'backlog', href: '/tools/backlog-wheel/', label: 'Backlog' },
+  { key: 'challenges', href: '/tools/challenge-generator/', label: 'Challenges' },
+  { key: 'blog', href: '/blog/', label: 'Blog' },
+];
+
+const BRAND_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" /><circle cx="8" cy="8" r="1.25" fill="currentColor" /><circle cx="16" cy="8" r="1.25" fill="currentColor" /><circle cx="8" cy="16" r="1.25" fill="currentColor" /><circle cx="16" cy="16" r="1.25" fill="currentColor" /><circle cx="12" cy="12" r="1.25" fill="currentColor" /></svg>`;
+
+const THEME_TOGGLE = `<button id="theme-toggle" class="btn btn--ghost btn--icon" type="button" aria-label="Toggle color theme" title="Toggle theme"><svg data-theme-icon="light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg><svg data-theme-icon="dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" width="18" height="18" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg></button>`;
+
+export function injectHeader({ activePage = '' } = {}) {
+  const slot = document.querySelector('[data-header]');
+  if (!slot) return;
+  const links = NAV_ITEMS.map(item => {
+    const current = item.key === activePage ? ' aria-current="page"' : '';
+    return `<a href="${item.href}"${current}>${item.label}</a>`;
+  }).join('');
+  slot.outerHTML = `<header class="site-header"><div class="site-header__inner"><a href="/" class="site-header__brand" aria-label="Randomizer home">${BRAND_SVG}<span>Randomizer</span></a><nav class="site-nav" aria-label="Primary">${links}${THEME_TOGGLE}</nav></div></header>`;
+}
+
+export function injectFooter() {
+  const slot = document.querySelector('[data-footer]');
+  if (!slot) return;
+  slot.outerHTML = `<footer class="site-footer"><div class="site-footer__inner"><span>🔒 All processing happens in your browser.</span><div class="site-footer__links"><a href="/privacy-policy.html">Privacy Policy</a><a href="/terms.html">Terms of Service</a><a href="/contact.html">Contact Us</a><span>© <span id="footer-year"></span> Randomizer</span></div></div></footer>`;
+}

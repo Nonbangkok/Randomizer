@@ -3,10 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
     <title>World-Building for Dungeon Masters: The Power of Random Tables — Randomizer</title>
     <meta name="description" content="Discover how to build immersive fantasy worlds without burning out. Learn to use random tables to spark creativity, build NPCs, and create dynamic encounters." />
     <link rel="canonical" href="https://randomizer.app/blog/world-building-random-tables.html" />
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="manifest" href="/manifest.json" />
+
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -19,12 +24,21 @@
         "url": "https://randomizer.app/blog/world-building-random-tables.html"
       }
     </script>
-    <link rel="stylesheet" href="/src/design-system/index.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
     <script>
       (function () {
         try {
           var stored = localStorage.getItem('randomizer:theme');
-          var theme = stored === 'light' || stored === 'dark' ? stored : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
           document.documentElement.setAttribute('data-theme', theme);
         } catch (e) {}
       })();
@@ -32,22 +46,19 @@
   </head>
   <body>
     <div class="app-shell">
-      <header class="site-header">
-        <div class="site-header__inner">
-          <a href="/" class="site-header__brand"><span>Randomizer</span></a>
-          <nav class="site-nav"><a href="/tools/name-generator/">Names</a><a href="/blog/">Back to Blog</a></nav>
-        </div>
-      </header>
+      <div data-header></div>
+
       <main class="main">
         <div class="container">
-          <article style="max-width: 720px; margin: 0 auto; line-height: 1.8;">
-            <header style="margin-bottom: var(--space-xl); text-align: center;">
-              <div style="color: var(--color-primary); font-weight: 600; margin-bottom: var(--space-sm);">MAY 4, 2026 • 12 MIN READ</div>
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-post__meta">MAY 4, 2026 • 12 MIN READ</span>
               <h1>World-Building for Dungeon Masters: The Power of Random Tables</h1>
             </header>
-            <div class="post-body">
+
+            <div class="blog-post__body">
               <p>For any Dungeon Master (DM), world-building is both a joy and a burden. We want to create deep, vibrant worlds for our players, but the sheer amount of work required to name every NPC, detail every tavern, and plan every encounter can lead to burnout. This is where random tables and generators become a DM's best friend.</p>
-              
+
               <h2>The "Seed" Method of World Building</h2>
               <p>You don't need to write a 100-page history book before Session 1. Instead, start with a "seed." A seed is a single, random element that you expand upon. For example, if you use a <strong>Fantasy Name Generator</strong> and get the name "Ironshaper Oakhaven," you immediately have questions to answer: Why is an Ironshaper in a place called Oakhaven? Are they a dwarf living among elves? This creates instant, organic world-building.</p>
 
@@ -57,7 +68,8 @@
               <h2>Conclusion</h2>
               <p>Don't be afraid to let randomness into your creative process. It doesn't mean you're lazy; it means you're using tools to spark your imagination. Use generators to handle the mundane details so you can focus on the epic storytelling.</p>
             </div>
-            <div style="margin-top: 60px; padding: 40px; background: var(--color-surface); border-radius: var(--radius-lg); text-align: center;">
+
+            <div class="blog-post__cta">
               <h3>Populate Your World</h3>
               <p>Get instant inspiration for your next session.</p>
               <a href="/tools/name-generator/" class="btn btn--primary">Generate NPC Names</a>
@@ -65,17 +77,9 @@
           </article>
         </div>
       </main>
-      <footer class="site-footer">
-        <div class="site-footer__inner">
-          <div style="display: flex; gap: var(--space-md); flex-wrap: wrap;">
-            <a href="/privacy-policy.html">Privacy Policy</a>
-            <a href="/terms.html">Terms of Service</a>
-            <a href="/contact.html">Contact Us</a>
-            <span>© <span id="footer-year"></span> Randomizer</span>
-          </div>
-        </div>
-      </footer>
+
+      <div data-footer></div>
     </div>
-    <script type="module" src="/src/pages/home.js"></script>
+    <script type="module" src="/src/pages/blog-post.js"></script>
   </body>
 </html>
