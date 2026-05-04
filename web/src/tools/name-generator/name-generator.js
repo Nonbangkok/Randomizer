@@ -21,7 +21,21 @@ export function mountNameGenerator(root) {
   const seedRow = root.querySelector('[data-ng-seed-row]');
   const methodSelect = root.querySelector('[data-ng-method]');
   const status = root.querySelector('[data-ng-status]');
+  const advToggle = root.querySelector('[data-ng-adv-toggle]');
+  const advPanel = root.querySelector('[data-ng-adv-panel]');
+  const advChevron = advToggle.querySelector('.ng-adv__chevron');
 
+  /* --- Advanced panel toggle --- */
+  let advOpen = false;
+  function setAdvOpen(open) {
+    advOpen = open;
+    advPanel.classList.toggle('is-open', advOpen);
+    advToggle.setAttribute('aria-expanded', String(advOpen));
+    advChevron.style.transform = advOpen ? 'rotate(180deg)' : '';
+  }
+  advToggle.addEventListener('click', () => setAdvOpen(!advOpen));
+
+  /* --- Seed row visibility --- */
   function syncSeedVisibility() {
     seedRow.hidden = methodSelect.value !== 'seeded';
   }
@@ -30,6 +44,12 @@ export function mountNameGenerator(root) {
 
   hydrateFromUrl();
   syncSeedVisibility();
+
+  /* If URL had advanced params, auto-open the panel */
+  const p = readParams();
+  if (p.get('method') || p.get('seed') || p.get('descriptor')) {
+    setAdvOpen(true);
+  }
 
   function hydrateFromUrl() {
     const p = readParams();
@@ -179,7 +199,7 @@ export function mountNameGenerator(root) {
 function template() {
   return `
     <form class="ng" data-ng-form>
-      <div class="ng__controls">
+      <div class="ng__primary">
         <fieldset class="ng-field">
           <legend>Genre</legend>
           <div class="segmented">
@@ -196,26 +216,41 @@ function template() {
             <label><input type="radio" name="language" value="th" /><span>TH</span></label>
           </div>
         </fieldset>
+      </div>
 
-        <div class="ng-field">
-          <label for="ng-method">Method</label>
-          <select id="ng-method" name="method" class="input" data-ng-method>
-            <option value="combinatorial">Quick (prefix + suffix)</option>
-            <option value="syllable">Unique (phonetic)</option>
-            <option value="hybrid">Hybrid</option>
-            <option value="seeded">Seeded (reproducible)</option>
-          </select>
+      <button type="button" class="ng-adv__toggle" data-ng-adv-toggle aria-expanded="false">
+        <svg class="ng-adv__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+        </svg>
+        <span>Advanced</span>
+        <svg class="ng-adv__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true">
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
+      </button>
+
+      <div class="ng-adv__panel" data-ng-adv-panel>
+        <div class="ng-adv__inner">
+          <div class="ng-field">
+            <label for="ng-method">Method</label>
+            <select id="ng-method" name="method" class="input" data-ng-method>
+              <option value="combinatorial">Quick (prefix + suffix)</option>
+              <option value="syllable">Unique (phonetic)</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="seeded">Seeded (reproducible)</option>
+            </select>
+          </div>
+
+          <div class="ng-field" data-ng-seed-row hidden>
+            <label for="ng-seed">Seed</label>
+            <input id="ng-seed" name="seed" type="text" class="input" placeholder="e.g. my-campaign" data-ng-seed />
+          </div>
+
+          <label class="ng-check">
+            <input type="checkbox" name="descriptor" />
+            <span>Add descriptor (e.g. "the Brave")</span>
+          </label>
         </div>
-
-        <div class="ng-field" data-ng-seed-row hidden>
-          <label for="ng-seed">Seed</label>
-          <input id="ng-seed" name="seed" type="text" class="input" placeholder="e.g. my-campaign" data-ng-seed />
-        </div>
-
-        <label class="ng-check">
-          <input type="checkbox" name="descriptor" />
-          <span>Add descriptor (e.g. "the Brave")</span>
-        </label>
       </div>
 
       <div class="ng__actions">

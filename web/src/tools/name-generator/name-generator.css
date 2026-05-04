@@ -1,12 +1,17 @@
+/* ==============================================
+   Name Generator — Minimal + Advanced Layout
+   ============================================== */
+
 .ng {
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
 }
 
-.ng__controls {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+/* --- Primary controls (always visible) --- */
+.ng__primary {
+  display: flex;
+  flex-wrap: wrap;
   gap: var(--space-md);
   align-items: end;
 }
@@ -19,13 +24,15 @@
   flex-direction: column;
   gap: var(--space-xs);
 }
+.ng-field[hidden] {
+  display: none;
+}
 .ng-field legend, .ng-field > label {
   font-size: 0.85rem;
   font-weight: 500;
   color: var(--color-muted);
   margin-bottom: var(--space-xs);
 }
-
 
 .ng-check {
   display: inline-flex;
@@ -36,6 +43,76 @@
   color: var(--color-text);
 }
 
+/* --- Advanced toggle button --- */
+.ng-adv__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--color-muted);
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out);
+  align-self: flex-start;
+}
+.ng-adv__toggle:hover {
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+.ng-adv__toggle[aria-expanded="true"] {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.ng-adv__icon {
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-out);
+}
+.ng-adv__toggle[aria-expanded="true"] .ng-adv__icon {
+  transform: rotate(90deg);
+}
+
+.ng-adv__chevron {
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-out);
+}
+
+/* --- Collapsible advanced panel --- */
+.ng-adv__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s var(--ease-out);
+}
+.ng-adv__panel.is-open {
+  grid-template-rows: 1fr;
+}
+
+.ng-adv__inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* Offset visual padding when open */
+  padding: 0;
+  transition: padding var(--duration-normal) var(--ease-out),
+              opacity var(--duration-normal) var(--ease-out);
+  opacity: 0;
+}
+.ng-adv__panel.is-open .ng-adv__inner {
+  padding: var(--space-md) 0;
+  opacity: 1;
+}
+
+/* --- Actions row --- */
 .ng__actions {
   display: flex;
   align-items: center;
@@ -50,6 +127,7 @@
   color: var(--color-muted);
 }
 
+/* --- Results grid --- */
 .ng-results {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -94,4 +172,14 @@
 @keyframes ng-fade-in {
   from { opacity: 0; transform: translateY(4px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .ng-adv__panel,
+  .ng-adv__inner,
+  .ng-adv__icon,
+  .ng-adv__chevron {
+    transition: none;
+  }
 }

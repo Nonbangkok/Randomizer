@@ -9,3 +9,5 @@
 @import './policy.css';
 @import '../tools/name-generator/name-generator.css';
 @import '../tools/password-generator/password-generator.css';
+@import '../tools/challenge-generator/challenge-generator.css';
+@import '../tools/backlog-wheel/backlog-wheel.css';
