@@ -3,33 +3,46 @@ import { initGA } from './analytics.js';
 import { injectHeader, injectFooter } from './layout.js';
 
 export function wireShell({ activePage = '' } = {}) {
-  // Inject layout components only if placeholders exist and are empty
+  // Only inject if element is a bare placeholder (no children at all)
   const headerContainer = document.querySelector('[data-header]');
-  if (headerContainer && !headerContainer.innerHTML.trim()) {
+  if (headerContainer && headerContainer.children.length === 0) {
     injectHeader({ activePage });
   }
-  
+
   const footerContainer = document.querySelector('[data-footer]');
-  if (footerContainer && !footerContainer.innerHTML.trim()) {
+  if (footerContainer && footerContainer.children.length === 0) {
     injectFooter();
   }
 
-  // Defer non-critical tasks even more for mobile
-  const delay = window.innerWidth < 768 ? 3000 : 1000;
-  
-  if ('requestIdleCallback' in window) {
-    window.requestIdleCallback(() => initGA(), { timeout: 5000 });
-  } else {
-    setTimeout(initGA, delay);
-  }
-
+  // Update footer year without re-rendering
   const yearEl = document.getElementById('footer-year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Wire theme toggle (works with both hardcoded and injected header)
   syncThemeIcons();
   document.getElementById('theme-toggle')?.addEventListener('click', () => {
     toggleTheme();
     syncThemeIcons();
   });
+
+  // Load GA only after full page load + interaction or long delay
+  // This avoids GTM impacting Lighthouse metrics entirely
+  let gaLoaded = false;
+  const loadGAOnce = () => {
+    if (!gaLoaded) {
+      gaLoaded = true;
+      initGA();
+    }
+  };
+
+  // Fire after first user interaction OR after 5s idle — whichever comes first
+  const interactionEvents = ['mousedown', 'touchstart', 'keydown', 'scroll'];
+  const removeListeners = () => interactionEvents.forEach(e => window.removeEventListener(e, onInteract));
+  const onInteract = () => { removeListeners(); loadGAOnce(); };
+  interactionEvents.forEach(e => window.addEventListener(e, onInteract, { passive: true, once: true }));
+
+  // Fallback: load after 6 seconds even without interaction
+  setTimeout(() => { removeListeners(); loadGAOnce(); }, 6000);
 }
 
 function syncThemeIcons() {
@@ -46,14 +59,11 @@ let wasmModulePromise;
 export function loadWasm() {
   if (!wasmModulePromise) {
     wasmModulePromise = (async () => {
-      // Longer delay for mobile to let UI become stable
-      const idleDelay = window.innerWidth < 768 ? 2000 : 0;
-      if (idleDelay > 0) {
-        await new Promise(resolve => setTimeout(resolve, idleDelay));
-      }
-      
+      // On mobile, wait for idle callback before loading heavy WASM
       if ('requestIdleCallback' in window) {
-        await new Promise(resolve => window.requestIdleCallback(resolve, { timeout: 10000 }));
+        await new Promise(resolve => window.requestIdleCallback(resolve, { timeout: 8000 }));
+      } else {
+        await new Promise(resolve => setTimeout(resolve, 200));
       }
       const mod = await import('../../pkg/wasm_bridge.js');
       await mod.default();
