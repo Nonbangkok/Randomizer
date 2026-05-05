@@ -1,33 +1,55 @@
 import { showToast } from '../../lib/toast.js';
-import { makeId, pushHistory, toggleFavorite } from '../../lib/storage.js';
+import { makeId, pushHistory, type StorageEntry } from '../../lib/storage.js';
 import { mountHistoryPanel, favoriteButton } from '../../lib/history-panel.js';
 import { readParams, writeParams, copyShareLink, shareButtonHtml } from '../../lib/share.js';
 import { mountAd } from '../../lib/ads.js';
+import { getWasm } from '../../lib/wasm.js';
+import { escapeHtml, hydrateForm, bindFavoriteDelegation, type HydrateRule } from '../../lib/dom.js';
 
 const TOOL = 'name-generator';
-const SHARE_KEYS = ['genre', 'language', 'method', 'seed', 'descriptor'];
-let wasmGenerate;
+const SHARE_KEYS = ['genre', 'language', 'method', 'seed', 'descriptor'] as const;
 
-export function setGenerator(fn) {
-  wasmGenerate = fn;
+const HYDRATE_RULES: readonly HydrateRule[] = [
+  { kind: 'radio', name: 'genre' },
+  { kind: 'radio', name: 'language' },
+  { kind: 'select', name: 'method' },
+  { kind: 'text', name: 'seed' },
+  { kind: 'checkbox', name: 'descriptor' },
+];
+
+type NameGenMethod = 'combinatorial' | 'syllable' | 'hybrid';
+
+interface NameGenConfig {
+  genre: string;
+  language: string;
+  method: NameGenMethod;
+  count: number;
+  seed: number | null;
+  min_length: number;
+  max_length: number;
+  include_descriptor: boolean;
 }
 
-export function mountNameGenerator(root) {
+export interface NameGeneratorHandle {
+  generate: () => Promise<void>;
+}
+
+export function mountNameGenerator(root: HTMLElement): NameGeneratorHandle {
   root.innerHTML = template();
 
-  const form = root.querySelector('[data-ng-form]');
-  const grid = root.querySelector('[data-ng-results]');
-  const seedInput = root.querySelector('[data-ng-seed]');
-  const seedRow = root.querySelector('[data-ng-seed-row]');
-  const methodSelect = root.querySelector('[data-ng-method]');
-  const status = root.querySelector('[data-ng-status]');
-  const advToggle = root.querySelector('[data-ng-adv-toggle]');
-  const advPanel = root.querySelector('[data-ng-adv-panel]');
-  const advChevron = advToggle.querySelector('.ng-adv__chevron');
+  const form = root.querySelector<HTMLFormElement>('[data-ng-form]')!;
+  const grid = root.querySelector<HTMLDivElement>('[data-ng-results]')!;
+  const seedInput = root.querySelector<HTMLInputElement>('[data-ng-seed]')!;
+  const seedRow = root.querySelector<HTMLElement>('[data-ng-seed-row]')!;
+  const methodSelect = root.querySelector<HTMLSelectElement>('[data-ng-method]')!;
+  const status = root.querySelector<HTMLElement>('[data-ng-status]')!;
+  const advToggle = root.querySelector<HTMLButtonElement>('[data-ng-adv-toggle]')!;
+  const advPanel = root.querySelector<HTMLElement>('[data-ng-adv-panel]')!;
+  const advChevron = advToggle.querySelector<HTMLElement>('.ng-adv__chevron')!;
 
   /* --- Advanced panel toggle --- */
   let advOpen = false;
-  function setAdvOpen(open) {
+  function setAdvOpen(open: boolean): void {
     advOpen = open;
     advPanel.classList.toggle('is-open', advOpen);
     advToggle.setAttribute('aria-expanded', String(advOpen));
@@ -36,7 +58,7 @@ export function mountNameGenerator(root) {
   advToggle.addEventListener('click', () => setAdvOpen(!advOpen));
 
   /* --- Seed row visibility --- */
-  function syncSeedVisibility() {
+  function syncSeedVisibility(): void {
     seedRow.hidden = methodSelect.value !== 'seeded';
   }
   methodSelect.addEventListener('change', syncSeedVisibility);
@@ -46,65 +68,44 @@ export function mountNameGenerator(root) {
   syncSeedVisibility();
 
   /* If URL had advanced params, auto-open the panel */
-  const p = readParams();
-  if (p.get('method') || p.get('seed') || p.get('descriptor')) {
+  const initialParams = readParams();
+  if (initialParams.get('method') || initialParams.get('seed') || initialParams.get('descriptor')) {
     setAdvOpen(true);
   }
 
-  function hydrateFromUrl() {
+  function hydrateFromUrl(): void {
     const p = readParams();
     if (!SHARE_KEYS.some((k) => p.has(k))) return;
-    for (const name of ['genre', 'language']) {
-      const v = p.get(name);
-      if (v) {
-        const radio = form.querySelector(`input[name="${name}"][value="${cssEscape(v)}"]`);
-        if (radio) radio.checked = true;
-      }
-    }
-    const method = p.get('method');
-    if (method && [...methodSelect.options].some((o) => o.value === method)) {
-      methodSelect.value = method;
-    }
-    const seed = p.get('seed');
-    if (seed) seedInput.value = seed;
-    const desc = p.get('descriptor');
-    if (desc === '1' || desc === 'on' || desc === 'true') {
-      const cb = form.querySelector('input[name="descriptor"]');
-      if (cb) cb.checked = true;
-    }
+    hydrateForm(form, p, HYDRATE_RULES);
   }
 
-  function syncUrl() {
+  function syncUrl(): void {
     const fd = new FormData(form);
-    const updates = {
-      genre: fd.get('genre'),
-      language: fd.get('language'),
-      method: fd.get('method'),
-      seed: fd.get('method') === 'seeded' ? (fd.get('seed') || '') : null,
+    writeParams({
+      genre: fd.get('genre') as string | null,
+      language: fd.get('language') as string | null,
+      method: fd.get('method') as string | null,
+      seed: fd.get('method') === 'seeded' ? ((fd.get('seed') as string | null) || '') : null,
       descriptor: fd.get('descriptor') === 'on' ? '1' : null,
-    };
-    writeParams(updates);
+    });
   }
 
-  function readConfig() {
+  function readConfig(): NameGenConfig {
     const fd = new FormData(form);
     const methodValue = fd.get('method');
-    let method = 'combinatorial';
-    let seed = null;
+    let method: NameGenMethod = 'combinatorial';
+    let seed: number | null = null;
     if (methodValue === 'syllable') method = 'syllable';
     else if (methodValue === 'hybrid') method = 'hybrid';
     else if (methodValue === 'seeded') {
       method = 'hybrid';
       const raw = fd.get('seed');
-      if (raw && raw.toString().trim()) {
-        seed = hashSeed(raw.toString().trim());
-      } else {
-        seed = 1;
-      }
+      const trimmed = typeof raw === 'string' ? raw.trim() : '';
+      seed = trimmed ? hashSeed(trimmed) : 1;
     }
     return {
-      genre: fd.get('genre'),
-      language: fd.get('language'),
+      genre: String(fd.get('genre') ?? ''),
+      language: String(fd.get('language') ?? ''),
       method,
       count: 8,
       seed,
@@ -114,13 +115,13 @@ export function mountNameGenerator(root) {
     };
   }
 
-  function render(names) {
+  function render(names: string[]): void {
     if (!names.length) {
       grid.innerHTML = `<p class="ng-empty">No names generated. Try different settings.</p>`;
       return;
     }
     grid.innerHTML = names.map((n, i) => {
-      const entry = { id: makeId(n), value: n };
+      const entry: StorageEntry = { id: makeId(n), value: n };
       return `
       <article class="ng-card" style="--i:${i}" data-entry-id="${entry.id}" data-entry-value="${escapeHtml(n)}">
         <span class="ng-card__name">${escapeHtml(n)}</span>
@@ -139,40 +140,32 @@ export function mountNameGenerator(root) {
   }
 
   grid.addEventListener('click', async (e) => {
-    const card = e.target.closest('[data-entry-id]');
-    if (!card) return;
-    const entry = { id: card.dataset.entryId, value: card.dataset.entryValue };
-
-    if (e.target.closest('[data-copy]')) {
-      try {
-        await navigator.clipboard.writeText(entry.value);
-        pushHistory(TOOL, entry);
-        showToast('Copied');
-      } catch {
-        showToast('Copy failed');
-      }
-      return;
-    }
-
-    const favBtn = e.target.closest('[data-fav-id]');
-    if (favBtn) {
-      const nowFav = toggleFavorite(TOOL, entry);
-      if (nowFav) pushHistory(TOOL, entry);
-      favBtn.classList.toggle('is-on', nowFav);
-      favBtn.setAttribute('aria-pressed', String(nowFav));
-      favBtn.querySelector('svg')?.setAttribute('fill', nowFav ? 'currentColor' : 'none');
+    const target = e.target as HTMLElement | null;
+    const card = target?.closest<HTMLElement>('[data-entry-id]');
+    if (!card || !target?.closest('[data-copy]')) return;
+    const value = card.dataset.entryValue ?? '';
+    try {
+      await navigator.clipboard.writeText(value);
+      pushHistory(TOOL, { id: card.dataset.entryId!, value });
+      showToast('Copied');
+    } catch {
+      showToast('Copy failed');
     }
   });
 
-  function generate() {
-    if (!wasmGenerate) {
-      status.textContent = 'WASM still loading…';
-      return;
-    }
+  bindFavoriteDelegation(
+    grid,
+    TOOL,
+    (card) => ({ id: card.dataset.entryId!, value: card.dataset.entryValue ?? '' }),
+    (entry) => pushHistory(TOOL, entry),
+  );
+
+  async function generate(): Promise<void> {
     try {
+      const { generate_names } = await getWasm();
       const cfg = readConfig();
-      const json = wasmGenerate(JSON.stringify(cfg));
-      const names = JSON.parse(json);
+      const json = generate_names(JSON.stringify(cfg));
+      const names = JSON.parse(json) as string[];
       render(names);
       status.textContent = `${names.length} names generated`;
     } catch (err) {
@@ -181,22 +174,22 @@ export function mountNameGenerator(root) {
     }
   }
 
-  form.addEventListener('submit', (e) => { e.preventDefault(); generate(); });
-  form.addEventListener('change', () => { syncUrl(); if (grid.children.length) generate(); });
+  form.addEventListener('submit', (e) => { e.preventDefault(); void generate(); });
+  form.addEventListener('change', () => { syncUrl(); if (grid.children.length) void generate(); });
   form.addEventListener('input', (e) => { if (e.target === seedInput) syncUrl(); });
 
-  const shareBtn = root.querySelector('[data-share-btn]');
+  const shareBtn = root.querySelector<HTMLButtonElement>('[data-share-btn]')!;
   shareBtn.addEventListener('click', () => { syncUrl(); copyShareLink(); });
 
   mountAd(root.querySelector('[data-ad-slot="ng-leaderboard"]'), { format: 'leaderboard' });
 
-  const panel = root.querySelector('[data-ng-history]');
+  const panel = root.querySelector<HTMLElement>('[data-ng-history]')!;
   mountHistoryPanel(panel, { tool: TOOL, title: 'Names history' });
 
   return { generate };
 }
 
-function template() {
+function template(): string {
   return `
     <form class="ng" data-ng-form>
       <div class="ng__primary">
@@ -272,18 +265,10 @@ function template() {
   `;
 }
 
-function escapeHtml(s) {
-  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-
-function cssEscape(s) {
-  return String(s).replace(/[^a-zA-Z0-9_-]/g, '');
-}
-
-function hashSeed(input) {
+function hashSeed(input: string): number {
   let h = 2166136261n;
   for (const ch of input) {
-    h ^= BigInt(ch.codePointAt(0));
+    h ^= BigInt(ch.codePointAt(0)!);
     h = (h * 16777619n) & 0xffffffffffffffffn;
   }
   return Number(h & 0x1fffffffffffffn);

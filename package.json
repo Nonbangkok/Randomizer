@@ -6,6 +6,13 @@
     "build:wasm": "wasm-pack build crates/wasm_bridge --target web --out-dir ../../web/pkg",
     "dev": "npm --prefix web run dev",
     "build": "npm run build:wasm && npm --prefix web run build",
-    "test": "cargo test"
+    "test": "cargo test",
+    "test:web": "npm --prefix web run test",
+    "test:all": "cargo test && npm --prefix web run test",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0"
   }
 }

@@ -12,6 +12,13 @@ IMPLEMENTATION_PLAN.md
 TECHNICAL_PLAN.md
 IDEA.md
 FUTURE_PLAN.md
+CLAUDE.md
+REFACTOR.md
 
 # Wrangler cache
 .wrangler/
+
+# Playwright
+test-results/
+playwright-report/
+.playwright/

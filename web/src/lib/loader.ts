@@ -16,12 +16,12 @@ export const LOADER_HTML = `
 </div>
 `;
 
-export function showLoader(container) {
+export function showLoader(container: Element | null): void {
   if (!container) return;
   container.innerHTML = LOADER_HTML;
 }
 
-export function hideLoader(container) {
+export function hideLoader(container: Element | null): void {
   if (!container) return;
   container.innerHTML = '';
 }

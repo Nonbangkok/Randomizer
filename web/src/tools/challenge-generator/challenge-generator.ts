@@ -1,69 +1,87 @@
 import { showToast } from '../../lib/toast.js';
-import { makeId, pushHistory, toggleFavorite } from '../../lib/storage.js';
+import { makeId, pushHistory, type StorageEntry } from '../../lib/storage.js';
 import { mountHistoryPanel, favoriteButton } from '../../lib/history-panel.js';
 import { readParams, writeParams, copyShareLink, randomSeed, shareButtonHtml } from '../../lib/share.js';
 import { mountAd } from '../../lib/ads.js';
+import { getWasm } from '../../lib/wasm.js';
+import { escapeHtml, hydrateForm, bindFavoriteDelegation, type HydrateRule } from '../../lib/dom.js';
 
 const TOOL = 'challenge-generator';
-let wasmGenerate;
-export function setGenerator(fn) { wasmGenerate = fn; }
 
-export function mountChallengeGenerator(root) {
+const HYDRATE_RULES: readonly HydrateRule[] = [
+  { kind: 'radio', name: 'game' },
+  { kind: 'radio', name: 'difficulty' },
+  { kind: 'select', name: 'count' },
+];
+
+interface ChallengeRule {
+  category: string;
+  text: string;
+}
+
+interface ChallengeConfig {
+  game: string;
+  difficulty: string;
+  count: number;
+  seed: number | null;
+}
+
+export interface ChallengeGeneratorHandle {
+  generate: () => Promise<void>;
+}
+
+export function mountChallengeGenerator(root: HTMLElement): ChallengeGeneratorHandle {
   root.innerHTML = template();
 
-  const form = root.querySelector('[data-cg-form]');
-  const list = root.querySelector('[data-cg-list]');
-  const status = root.querySelector('[data-cg-status]');
+  const form = root.querySelector<HTMLFormElement>('[data-cg-form]')!;
+  const list = root.querySelector<HTMLOListElement>('[data-cg-list]')!;
+  const status = root.querySelector<HTMLElement>('[data-cg-status]')!;
 
-  let activeSeed = null;
+  let activeSeed: number | null = null;
 
-  function readConfig() {
+  function readConfig(): ChallengeConfig {
     const fd = new FormData(form);
     return {
-      game: fd.get('game'),
-      difficulty: fd.get('difficulty'),
+      game: String(fd.get('game') ?? ''),
+      difficulty: String(fd.get('difficulty') ?? ''),
       count: Number(fd.get('count')) || 5,
       seed: activeSeed,
     };
   }
 
-  function hydrateFromUrl() {
+  function hydrateFromUrl(): void {
     const p = readParams();
-    for (const name of ['game', 'difficulty']) {
-      const v = p.get(name);
-      if (v) {
-        const radio = form.querySelector(`input[name="${name}"][value="${cssEscape(v)}"]`);
-        if (radio) radio.checked = true;
-      }
-    }
-    const count = p.get('count');
-    if (count && form.querySelector(`option[value="${cssEscape(count)}"]`)) {
-      form.querySelector('select[name="count"]').value = count;
-    }
-    const seed = parseInt(p.get('seed'), 10);
+    hydrateForm(form, p, HYDRATE_RULES);
+    const seedRaw = p.get('seed');
+    const seed = seedRaw != null ? parseInt(seedRaw, 10) : NaN;
     if (Number.isFinite(seed) && seed > 0) activeSeed = seed;
   }
 
-  function syncUrl() {
+  function syncUrl(): void {
     const fd = new FormData(form);
     writeParams({
-      game: fd.get('game'),
-      difficulty: fd.get('difficulty'),
-      count: fd.get('count'),
-      seed: activeSeed || null,
+      game: fd.get('game') as string | null,
+      difficulty: fd.get('difficulty') as string | null,
+      count: fd.get('count') as string | null,
+      seed: activeSeed ?? null,
     });
   }
 
   hydrateFromUrl();
 
-  function render(rules) {
+  function render(rules: ChallengeRule[]): void {
     if (!rules.length) {
       list.innerHTML = `<p class="cg-empty">No rules generated.</p>`;
       return;
     }
     list.innerHTML = rules.map((r, i) => {
       const value = `[${r.category}] ${r.text}`;
-      const entry = { id: makeId(value), value, label: r.text, meta: { category: r.category } };
+      const entry: StorageEntry = {
+        id: makeId(value),
+        value,
+        label: r.text,
+        meta: { category: r.category },
+      };
       return `
       <li class="cg-rule" style="--i:${i}" data-entry-id="${entry.id}" data-entry-value="${escapeHtml(value)}" data-entry-label="${escapeHtml(r.text)}" data-entry-category="${escapeHtml(r.category)}">
         <span class="badge">${escapeHtml(r.category)}</span>
@@ -74,29 +92,23 @@ export function mountChallengeGenerator(root) {
     }).join('');
   }
 
-  list.addEventListener('click', (e) => {
-    const favBtn = e.target.closest('[data-fav-id]');
-    if (!favBtn) return;
-    const li = favBtn.closest('[data-entry-id]');
-    if (!li) return;
-    const entry = {
-      id: li.dataset.entryId,
-      value: li.dataset.entryValue,
-      label: li.dataset.entryLabel,
-      meta: { category: li.dataset.entryCategory },
-    };
-    const nowFav = toggleFavorite(TOOL, entry);
-    if (nowFav) pushHistory(TOOL, entry);
-    favBtn.classList.toggle('is-on', nowFav);
-    favBtn.setAttribute('aria-pressed', String(nowFav));
-    favBtn.querySelector('svg')?.setAttribute('fill', nowFav ? 'currentColor' : 'none');
-  });
+  bindFavoriteDelegation(
+    list,
+    TOOL,
+    (li) => ({
+      id: li.dataset.entryId!,
+      value: li.dataset.entryValue ?? '',
+      label: li.dataset.entryLabel ?? '',
+      meta: { category: li.dataset.entryCategory ?? '' },
+    }),
+    (entry) => pushHistory(TOOL, entry),
+  );
 
-  function generate() {
-    if (!wasmGenerate) return;
+  async function generate(): Promise<void> {
     try {
-      const json = wasmGenerate(JSON.stringify(readConfig()));
-      const rules = JSON.parse(json);
+      const { generate_challenge } = await getWasm();
+      const json = generate_challenge(JSON.stringify(readConfig()));
+      const rules = JSON.parse(json) as ChallengeRule[];
       render(rules);
       status.textContent = `${rules.length} rule${rules.length === 1 ? '' : 's'} generated`;
     } catch (err) {
@@ -106,23 +118,23 @@ export function mountChallengeGenerator(root) {
   }
 
   // User-driven config changes invalidate the locked seed (otherwise stale).
-  form.addEventListener('change', () => { activeSeed = null; syncUrl(); if (list.children.length) generate(); });
-  form.addEventListener('submit', (e) => { e.preventDefault(); activeSeed = null; syncUrl(); generate(); });
+  form.addEventListener('change', () => { activeSeed = null; syncUrl(); if (list.children.length) void generate(); });
+  form.addEventListener('submit', (e) => { e.preventDefault(); activeSeed = null; syncUrl(); void generate(); });
 
-  const shareBtn = root.querySelector('[data-share-btn]');
+  const shareBtn = root.querySelector<HTMLButtonElement>('[data-share-btn]')!;
   shareBtn.addEventListener('click', () => {
     if (activeSeed == null) {
       activeSeed = randomSeed();
-      generate();
+      void generate();
     }
     syncUrl();
     copyShareLink();
   });
 
-  const copyAllBtn = root.querySelector('[data-cg-copy]');
+  const copyAllBtn = root.querySelector<HTMLButtonElement>('[data-cg-copy]')!;
   copyAllBtn.addEventListener('click', async () => {
-    const text = Array.from(list.querySelectorAll('.cg-rule__text'))
-      .map((el, i) => `${i + 1}. ${el.textContent}`)
+    const text = Array.from(list.querySelectorAll<HTMLElement>('.cg-rule__text'))
+      .map((el, i) => `${i + 1}. ${el.textContent ?? ''}`)
       .join('\n');
     if (!text) return;
     try { await navigator.clipboard.writeText(text); showToast('Copied'); } catch { showToast('Copy failed'); }
@@ -130,18 +142,21 @@ export function mountChallengeGenerator(root) {
 
   mountAd(root.querySelector('[data-ad-slot="cg-leaderboard"]'), { format: 'leaderboard' });
 
-  const panel = root.querySelector('[data-cg-history]');
+  const panel = root.querySelector<HTMLElement>('[data-cg-history]')!;
   mountHistoryPanel(panel, {
     tool: TOOL,
     title: 'Challenge history',
-    renderValue: (e) => `<span class="badge">${escapeHtml(e.meta?.category || '—')}</span> ${escapeHtml(e.label || e.value)}`,
+    renderValue: (e) => {
+      const category = typeof e.meta?.['category'] === 'string' ? (e.meta['category'] as string) : '—';
+      return `<span class="badge">${escapeHtml(category)}</span> ${escapeHtml(e.label || e.value)}`;
+    },
     copyText: (e) => e.label || e.value,
   });
 
   return { generate };
 }
 
-function template() {
+function template(): string {
   return `
     <form class="cg" data-cg-form>
       <div class="cg__controls">
@@ -200,9 +215,3 @@ function template() {
   `;
 }
 
-function escapeHtml(s) {
-  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-function cssEscape(s) {
-  return String(s).replace(/[^a-zA-Z0-9_-]/g, '');
-}

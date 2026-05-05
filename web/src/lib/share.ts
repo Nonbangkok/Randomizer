@@ -5,15 +5,24 @@
 
 import { showToast } from './toast.js';
 
-export function readParams() {
+export type ParamValue = string | number | boolean | null | undefined;
+
+export interface WriteParamsOptions {
+  replace?: boolean;
+}
+
+export function readParams(): URLSearchParams {
   return new URLSearchParams(window.location.search);
 }
 
 /**
  * Merge updates into the current URL's query string.
- * Pass `null` or `''` to delete a param.
+ * Pass `null`, `undefined`, `''`, or `false` to delete a param.
  */
-export function writeParams(updates, { replace = true } = {}) {
+export function writeParams(
+  updates: Record<string, ParamValue>,
+  { replace = true }: WriteParamsOptions = {},
+): void {
   const p = new URLSearchParams(window.location.search);
   for (const [k, v] of Object.entries(updates)) {
     if (v === null || v === undefined || v === '' || v === false) p.delete(k);
@@ -25,7 +34,7 @@ export function writeParams(updates, { replace = true } = {}) {
   else window.history.pushState(null, '', url);
 }
 
-export async function copyShareLink() {
+export async function copyShareLink(): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(window.location.href);
     showToast('Share link copied');
@@ -37,13 +46,13 @@ export async function copyShareLink() {
 }
 
 // URL-safe base64 (RFC 4648 §5) for arbitrary text. Used for the backlog-wheel list.
-export function encodeText(text) {
+export function encodeText(text: string | null | undefined): string {
   if (!text) return '';
   const b64 = btoa(unescape(encodeURIComponent(text)));
   return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-export function decodeText(s) {
+export function decodeText(s: string | null | undefined): string | null {
   if (!s) return null;
   try {
     let b64 = s.replace(/-/g, '+').replace(/_/g, '/');
@@ -56,12 +65,16 @@ export function decodeText(s) {
 }
 
 // Generates a random non-zero u32 suitable for use as a seed.
-export function randomSeed() {
+export function randomSeed(): number {
   return (Math.floor(Math.random() * 0xfffffffe) + 1) >>> 0;
 }
 
+export interface ShareButtonOptions {
+  label?: string;
+}
+
 // Reusable share-button HTML. Pair with `bindShareButton(el, handler)`.
-export function shareButtonHtml({ label = 'Share' } = {}) {
+export function shareButtonHtml({ label = 'Share' }: ShareButtonOptions = {}): string {
   return `
     <button type="button" class="btn btn--ghost btn--sm" data-share-btn aria-label="${label} link" title="${label} link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true">

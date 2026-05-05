@@ -1,20 +1,53 @@
 import { showToast } from '../../lib/toast.js';
-import { makeId, pushHistory, toggleFavorite, isFavorite } from '../../lib/storage.js';
+import { makeId, pushHistory, toggleFavorite, isFavorite, type StorageEntry } from '../../lib/storage.js';
 import { mountHistoryPanel } from '../../lib/history-panel.js';
-import { readParams, writeParams, copyShareLink, shareButtonHtml } from '../../lib/share.js';
+import { readParams, writeParams, copyShareLink, shareButtonHtml, type ParamValue } from '../../lib/share.js';
 import { mountAd } from '../../lib/ads.js';
+import { getWasm } from '../../lib/wasm.js';
+import { escapeHtml, hydrateForm, setStatus, type HydrateRule } from '../../lib/dom.js';
 
 const TOOL = 'password-generator';
-const BOOL_KEYS = ['uppercase', 'lowercase', 'numbers', 'symbols', 'exclude_ambiguous'];
-let wasmGenerate;
-let wasmAnalyze;
+const BOOL_KEYS = ['uppercase', 'lowercase', 'numbers', 'symbols', 'exclude_ambiguous'] as const;
+type BoolKey = (typeof BOOL_KEYS)[number];
 
-export function setBackends({ generate, analyze }) {
-  wasmGenerate = generate;
-  wasmAnalyze = analyze;
+// All boolean params on this tool are serialised as the literal '1'.
+const BOOL_TRUTHY = ['1'] as const;
+
+const HYDRATE_RULES: readonly HydrateRule[] = BOOL_KEYS.map((name) => ({
+  kind: 'checkbox',
+  name,
+  truthy: BOOL_TRUTHY,
+}));
+
+type Strength = 'very-weak' | 'weak' | 'fair' | 'strong' | 'very-strong';
+
+interface PasswordConfig {
+  length: number;
+  uppercase: boolean;
+  lowercase: boolean;
+  numbers: boolean;
+  symbols: boolean;
+  exclude_ambiguous: boolean;
+  custom_exclude: string;
 }
 
-const STRENGTH_PCT = {
+interface PasswordAnalysis {
+  strength: Strength;
+  strength_label: string;
+  entropy: number;
+  time_to_crack: {
+    online_throttled: string;
+    offline_slow: string;
+    offline_fast: string;
+  };
+  warnings: string[];
+}
+
+export interface PasswordGeneratorHandle {
+  regenerate: () => Promise<void>;
+}
+
+const STRENGTH_PCT: Record<Strength, number> = {
   'very-weak': 15,
   'weak': 30,
   'fair': 55,
@@ -22,23 +55,24 @@ const STRENGTH_PCT = {
   'very-strong': 100,
 };
 
-export function mountPasswordGenerator(root) {
+export function mountPasswordGenerator(root: HTMLElement): PasswordGeneratorHandle {
   root.innerHTML = template();
 
-  const form = root.querySelector('[data-pg-form]');
-  const display = root.querySelector('[data-pg-display]');
-  const copyBtn = root.querySelector('[data-pg-copy]');
-  const refreshBtn = root.querySelector('[data-pg-refresh]');
-  const favBtn = root.querySelector('[data-pg-fav]');
-  const lengthInput = root.querySelector('[data-pg-length]');
-  const lengthOut = root.querySelector('[data-pg-length-out]');
-  const meterBar = root.querySelector('[data-pg-meter-bar]');
-  const meterLabel = root.querySelector('[data-pg-meter-label]');
-  const entropyOut = root.querySelector('[data-pg-entropy]');
-  const ttcOut = root.querySelector('[data-pg-ttc]');
-  const warningsList = root.querySelector('[data-pg-warnings]');
+  const form = root.querySelector<HTMLFormElement>('[data-pg-form]')!;
+  const display = root.querySelector<HTMLOutputElement>('[data-pg-display]')!;
+  const copyBtn = root.querySelector<HTMLButtonElement>('[data-pg-copy]')!;
+  const refreshBtn = root.querySelector<HTMLButtonElement>('[data-pg-refresh]')!;
+  const favBtn = root.querySelector<HTMLButtonElement>('[data-pg-fav]')!;
+  const lengthInput = root.querySelector<HTMLInputElement>('[data-pg-length]')!;
+  const lengthOut = root.querySelector<HTMLOutputElement>('[data-pg-length-out]')!;
+  const meterBar = root.querySelector<HTMLElement>('[data-pg-meter-bar]')!;
+  const meterLabel = root.querySelector<HTMLElement>('[data-pg-meter-label]')!;
+  const entropyOut = root.querySelector<HTMLElement>('[data-pg-entropy]')!;
+  const ttcOut = root.querySelector<HTMLElement>('[data-pg-ttc]')!;
+  const warningsList = root.querySelector<HTMLUListElement>('[data-pg-warnings]')!;
+  const status = root.querySelector<HTMLElement>('[data-status]')!;
 
-  function readConfig() {
+  function readConfig(): PasswordConfig {
     const fd = new FormData(form);
     return {
       length: Number(fd.get('length')),
@@ -51,32 +85,33 @@ export function mountPasswordGenerator(root) {
     };
   }
 
-  function regenerate() {
-    if (!wasmGenerate) return;
+  async function regenerate(): Promise<void> {
     const cfg = readConfig();
     if (!cfg.uppercase && !cfg.lowercase && !cfg.numbers && !cfg.symbols) {
-      display.textContent = 'Select at least one character set';
+      display.textContent = '—';
       meterBar.style.width = '0%';
       meterBar.dataset.strength = 'very-weak';
       meterLabel.textContent = '—';
       entropyOut.textContent = '0 bits';
       ttcOut.innerHTML = '';
       warningsList.innerHTML = '';
+      setStatus(status, 'error', 'Select at least one character set');
       return;
     }
     try {
-      const password = wasmGenerate(JSON.stringify(cfg));
+      const { generate_password, analyze_password } = await getWasm();
+      const password = generate_password(JSON.stringify(cfg));
       display.textContent = password;
-      analyze(password);
+      analyze(password, analyze_password);
+      setStatus(status, 'idle', '');
     } catch (err) {
       console.error(err);
-      display.textContent = 'Generation failed';
+      setStatus(status, 'error', 'Generation failed');
     }
   }
 
-  function analyze(password) {
-    if (!wasmAnalyze) return;
-    const a = JSON.parse(wasmAnalyze(password));
+  function analyze(password: string, analyze_password: (p: string) => string): void {
+    const a = JSON.parse(analyze_password(password)) as PasswordAnalysis;
     const pct = STRENGTH_PCT[a.strength] ?? 0;
     meterBar.style.width = pct + '%';
     meterBar.dataset.strength = a.strength;
@@ -88,31 +123,29 @@ export function mountPasswordGenerator(root) {
       <span><b>Offline (fast):</b> ${a.time_to_crack.offline_fast}</span>
     `;
     warningsList.innerHTML = a.warnings.length
-      ? a.warnings.map(w => `<li>${escapeHtml(w)}</li>`).join('')
+      ? a.warnings.map((w) => `<li>${escapeHtml(w)}</li>`).join('')
       : '';
   }
 
   hydrateFromUrl();
 
-  function hydrateFromUrl() {
+  function hydrateFromUrl(): void {
     const p = readParams();
-    const len = parseInt(p.get('length'), 10);
+    const lenRaw = p.get('length');
+    const len = lenRaw != null ? parseInt(lenRaw, 10) : NaN;
     if (Number.isFinite(len) && len >= 8 && len <= 64) {
       lengthInput.value = String(len);
       lengthOut.textContent = lengthInput.value;
     }
-    for (const key of BOOL_KEYS) {
-      if (!p.has(key)) continue;
-      const cb = form.querySelector(`input[name="${key}"]`);
-      if (cb) cb.checked = p.get(key) === '1';
-    }
+    hydrateForm(form, p, HYDRATE_RULES);
   }
 
-  function syncUrl() {
+  function syncUrl(): void {
     const fd = new FormData(form);
-    const updates = { length: fd.get('length') };
+    const updates: Record<string, ParamValue> = { length: fd.get('length') as string | null };
     for (const key of BOOL_KEYS) {
-      updates[key] = fd.get(key) === 'on' ? '1' : '0';
+      const flag: BoolKey = key;
+      updates[flag] = fd.get(flag) === 'on' ? '1' : '0';
     }
     writeParams(updates);
   }
@@ -120,20 +153,20 @@ export function mountPasswordGenerator(root) {
   lengthInput.addEventListener('input', () => {
     lengthOut.textContent = lengthInput.value;
     syncUrl();
-    regenerate();
+    void regenerate();
   });
-  form.addEventListener('change', () => { syncUrl(); regenerate(); });
-  refreshBtn.addEventListener('click', regenerate);
+  form.addEventListener('change', () => { syncUrl(); void regenerate(); });
+  refreshBtn.addEventListener('click', () => { void regenerate(); });
 
-  const shareBtn = root.querySelector('[data-share-btn]');
+  const shareBtn = root.querySelector<HTMLButtonElement>('[data-share-btn]')!;
   shareBtn.addEventListener('click', () => { syncUrl(); copyShareLink(); });
 
-  function currentEntry() {
-    const value = display.textContent;
+  function currentEntry(): StorageEntry {
+    const value = display.textContent ?? '';
     return { id: makeId(value), value };
   }
 
-  function syncFav() {
+  function syncFav(): void {
     const on = isFavorite(TOOL, currentEntry().id);
     favBtn.classList.toggle('is-on', on);
     favBtn.setAttribute('aria-pressed', String(on));
@@ -165,13 +198,13 @@ export function mountPasswordGenerator(root) {
 
   mountAd(root.querySelector('[data-ad-slot="pg-leaderboard"]'), { format: 'leaderboard' });
 
-  const panel = root.querySelector('[data-pg-history]');
+  const panel = root.querySelector<HTMLElement>('[data-pg-history]')!;
   mountHistoryPanel(panel, { tool: TOOL, title: 'Password history' });
 
   return { regenerate };
 }
 
-function template() {
+function template(): string {
   return `
     <form class="pg" data-pg-form>
       <div class="pg-display-row">
@@ -220,6 +253,8 @@ function template() {
         <label class="pg-toggle"><input type="checkbox" name="exclude_ambiguous" /><span>Exclude ambiguous (l, 1, O, 0…)</span></label>
       </div>
 
+      <p class="pg-status" data-status data-status-kind="idle" role="status" aria-live="polite"></p>
+
       <div class="pg-share-row">
         ${shareButtonHtml({ label: 'Share config' })}
         <span class="pg-share-hint">Shares your settings only — never the password.</span>
@@ -232,6 +267,3 @@ function template() {
   `;
 }
 
-function escapeHtml(s) {
-  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}

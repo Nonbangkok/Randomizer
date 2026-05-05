@@ -1,5 +1,5 @@
 import { showToast } from '../../lib/toast.js';
-import { makeId, pushHistory, toggleFavorite } from '../../lib/storage.js';
+import { makeId, pushHistory, toggleFavorite, type StorageEntry } from '../../lib/storage.js';
 import { mountHistoryPanel, favoriteButton } from '../../lib/history-panel.js';
 import { readParams, writeParams, copyShareLink, encodeText, decodeText, shareButtonHtml } from '../../lib/share.js';
 import { mountAd } from '../../lib/ads.js';
@@ -8,14 +8,18 @@ const TOOL = 'backlog-wheel';
 const STORAGE_KEY = 'randomizer:backlog';
 const URL_LIST_LIMIT = 6000; // skip URL sync past this length to keep URLs sane
 
-export function mountBacklogWheel(root) {
+export interface BacklogWheelHandle {
+  // Reserved for future imperative API; mounted tool currently exposes nothing.
+}
+
+export function mountBacklogWheel(root: HTMLElement): BacklogWheelHandle {
   root.innerHTML = template();
 
-  const textarea = root.querySelector('[data-bw-input]');
-  const spinBtn = root.querySelector('[data-bw-spin]');
-  const result = root.querySelector('[data-bw-result]');
-  const count = root.querySelector('[data-bw-count]');
-  const favSlot = root.querySelector('[data-bw-fav-slot]');
+  const textarea = root.querySelector<HTMLTextAreaElement>('[data-bw-input]')!;
+  const spinBtn = root.querySelector<HTMLButtonElement>('[data-bw-spin]')!;
+  const result = root.querySelector<HTMLElement>('[data-bw-result]')!;
+  const count = root.querySelector<HTMLElement>('[data-bw-count]')!;
+  const favSlot = root.querySelector<HTMLElement>('[data-bw-fav-slot]')!;
 
   // URL list takes precedence over local storage when present.
   const urlList = decodeText(readParams().get('list'));
@@ -29,7 +33,7 @@ export function mountBacklogWheel(root) {
     updateCount();
   });
 
-  function syncUrl() {
+  function syncUrl(): void {
     const text = textarea.value.trim();
     const encoded = encodeText(text);
     if (encoded.length > URL_LIST_LIMIT) {
@@ -39,10 +43,10 @@ export function mountBacklogWheel(root) {
     }
   }
 
-  function items() {
-    return textarea.value.split('\n').map(s => s.trim()).filter(Boolean);
+  function items(): string[] {
+    return textarea.value.split('\n').map((s) => s.trim()).filter(Boolean);
   }
-  function updateCount() {
+  function updateCount(): void {
     const n = items().length;
     count.textContent = n === 0 ? 'Add items to spin' : `${n} item${n === 1 ? '' : 's'}`;
     spinBtn.disabled = n < 2;
@@ -58,17 +62,17 @@ export function mountBacklogWheel(root) {
     spinBtn.disabled = true;
     result.classList.add('is-spinning');
 
-    const target = list[Math.floor(Math.random() * list.length)];
+    const target = list[Math.floor(Math.random() * list.length)]!;
     const totalMs = 1600;
     const start = performance.now();
     let last = '';
 
-    await new Promise((resolve) => {
-      function tick(now) {
+    await new Promise<void>((resolve) => {
+      function tick(now: number): void {
         const t = (now - start) / totalMs;
         if (t >= 1) { resolve(); return; }
         const delay = 40 + t * t * 200;
-        const pick = list[Math.floor(Math.random() * list.length)];
+        const pick = list[Math.floor(Math.random() * list.length)]!;
         if (pick !== last) {
           result.textContent = pick;
           last = pick;
@@ -83,22 +87,23 @@ export function mountBacklogWheel(root) {
     result.classList.add('is-revealed');
     setTimeout(() => result.classList.remove('is-revealed'), 600);
 
-    const entry = { id: makeId(target), value: target };
+    const entry: StorageEntry = { id: makeId(target), value: target };
     pushHistory(TOOL, entry);
     favSlot.innerHTML = favoriteButton(TOOL, entry);
 
-    try { await navigator.clipboard.writeText(target); showToast('Copied to clipboard'); } catch {}
+    try { await navigator.clipboard.writeText(target); showToast('Copied to clipboard'); } catch { /* ignore */ }
 
     spinning = false;
     spinBtn.disabled = list.length < 2;
   });
 
   favSlot.addEventListener('click', (e) => {
-    const favBtn = e.target.closest('[data-fav-id]');
+    const target = e.target as HTMLElement | null;
+    const favBtn = target?.closest<HTMLButtonElement>('[data-fav-id]');
     if (!favBtn) return;
     const value = result.textContent;
     if (!value || value === '—') return;
-    const entry = { id: makeId(value), value };
+    const entry: StorageEntry = { id: makeId(value), value };
     const nowFav = toggleFavorite(TOOL, entry);
     if (nowFav) pushHistory(TOOL, entry);
     favBtn.classList.toggle('is-on', nowFav);
@@ -106,7 +111,7 @@ export function mountBacklogWheel(root) {
     favBtn.querySelector('svg')?.setAttribute('fill', nowFav ? 'currentColor' : 'none');
   });
 
-  const shareBtn = root.querySelector('[data-share-btn]');
+  const shareBtn = root.querySelector<HTMLButtonElement>('[data-share-btn]')!;
   shareBtn.addEventListener('click', () => {
     syncUrl();
     const encoded = encodeText(textarea.value.trim());
@@ -122,7 +127,7 @@ export function mountBacklogWheel(root) {
 
   mountAd(root.querySelector('[data-ad-slot="bw-leaderboard"]'), { format: 'leaderboard' });
 
-  const panel = root.querySelector('[data-bw-history]');
+  const panel = root.querySelector<HTMLElement>('[data-bw-history]')!;
   mountHistoryPanel(panel, {
     tool: TOOL,
     title: 'Spin history',
@@ -135,15 +140,15 @@ export function mountBacklogWheel(root) {
   return {};
 }
 
-function load() {
+function load(): string {
   try { return localStorage.getItem(STORAGE_KEY) || defaultList(); } catch { return defaultList(); }
 }
-function save(v) { try { localStorage.setItem(STORAGE_KEY, v); } catch {} }
-function defaultList() {
+function save(v: string): void { try { localStorage.setItem(STORAGE_KEY, v); } catch { /* ignore */ } }
+function defaultList(): string {
   return ['Elden Ring', 'Hollow Knight', 'Stardew Valley', 'Hades', 'Disco Elysium'].join('\n');
 }
 
-function template() {
+function template(): string {
   return `
     <div class="bw">
       <div class="bw-result" data-bw-result>—</div>
