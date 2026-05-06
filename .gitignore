@@ -7,14 +7,6 @@ dist/
 .env
 .env.local
 
-# Planning Docs (Local only)
-IMPLEMENTATION_PLAN.md
-TECHNICAL_PLAN.md
-IDEA.md
-FUTURE_PLAN.md
-CLAUDE.md
-REFACTOR.md
-
 # Wrangler cache
 .wrangler/
 

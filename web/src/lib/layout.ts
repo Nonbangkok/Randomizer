@@ -14,6 +14,10 @@ const NAV_ITEMS: readonly NavItem[] = [
   { key: 'passwords', href: '/tools/password-generator/', label: 'Passwords' },
   { key: 'backlog', href: '/tools/backlog-wheel/', label: 'Backlog' },
   { key: 'challenges', href: '/tools/challenge-generator/', label: 'Challenges' },
+  { key: 'dice', href: '/tools/dice-roller/', label: 'Dice' },
+  { key: 'gacha', href: '/tools/gacha-simulator/', label: 'Gacha' },
+  { key: 'game-idea', href: '/tools/game-idea/', label: 'Game Idea' },
+  { key: 'drop', href: '/tools/drop-point/', label: 'Drop Point' },
   { key: 'blog', href: '/blog/', label: 'Blog' },
 ];
 

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Client-Side Processing: The Future of Web Privacy — Randomizer</title>
+    <meta name="description" content="Why browser-based tools are safer than server-based tools. How WebAssembly and client-side processing protect your data — it never leaves your device." />
+    <link rel="canonical" href="https://randomizers.app/blog/client-side-privacy.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Client-Side Processing: The Future of Web Privacy",
+        "description": "Why browser-based tools are safer than server-based tools. How WebAssembly and client-side processing protect your data — it never leaves your device.",
+        "author": { "@type": "Organization", "name": "Randomizer" },
+        "publisher": { "@type": "Organization", "name": "Randomizer", "url": "https://randomizers.app" },
+        "datePublished": "2026-05-06",
+        "url": "https://randomizers.app/blog/client-side-privacy.html"
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-post__meta">MAY 6, 2026 • 10 MIN READ</span>
+              <h1>Client-Side Processing: The Future of Web Privacy</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>The dominant model of the web for 30 years has been client-server: you send your data to a server, it processes it, sends back results. For most applications this model works well enough — but for anything privacy-sensitive, it is fundamentally broken. When your data leaves your device, you lose control of it. A better paradigm exists, and it is already running in your browser today.</p>
+
+              <h2>The Server-Trust Problem</h2>
+              <p>Every time you use a server-side tool, you are implicitly making four assumptions. First, that the server does not log your inputs. Second, that the operator's privacy policy is truthful and will remain so. Third, that the server is secure against breaches. And fourth, that no undisclosed third parties have access to your data.</p>
+
+              <p>In practice, all four assumptions fail with alarming regularity. Consider what happened to LastPass in 2022: encrypted password vaults were exfiltrated from their servers. The data was "encrypted," but the encryption keys were tied to master passwords — passwords that attackers then had unlimited time to crack offline. The breach was possible only because the data existed on a server in the first place. If password generation and storage had happened entirely client-side, there would have been nothing to steal.</p>
+
+              <p>The pattern repeats across the industry. Analytics platforms harvest behavioral data from the tools you use to analyse your own data. "Free" services — search tools, grammar checkers, productivity apps — frequently have business models built around selling or processing user inputs. A grammar checking tool that processes your private documents on its servers knows everything you type. A resume tool that generates suggestions server-side has read every resume you upload. The privacy policy may promise not to misuse it, but the architectural reality is that the data is there, on their infrastructure, under their control.</p>
+
+              <p>The fundamental problem is not bad actors (though those exist too). It is that the server-side model makes privacy a policy question when it should be an engineering guarantee. When data never reaches a server, no policy, no breach, and no subpoena can expose it. The only way to guarantee privacy is to eliminate the server from the computation entirely.</p>
+
+              <h2>WebAssembly: Running Native Code in Your Browser</h2>
+              <p>For most of the web's history, "runs in your browser" meant JavaScript — a language fine for UI interactions but poorly suited to computationally expensive tasks like cryptographic key generation or complex probabilistic simulations. If you needed serious processing power, you needed a server. That constraint no longer holds.</p>
+
+              <p>WebAssembly (WASM) is a binary instruction format that executes directly in the browser's sandboxed runtime. Standardised by the W3C in 2017 and supported by every major browser since 2018, it enables code written in systems languages like Rust, C, and C++ to run inside a web page at near-native speeds. Performance benchmarks consistently show WASM executing at 80–90% of equivalent native code, with further gains ongoing as browser engines optimise their WASM runtimes.</p>
+
+              <p>The privacy implication is significant. Operations that were previously too expensive to run in a browser — AES encryption, argon2 password hashing, complex random generation algorithms — can now execute client-side in milliseconds. The computational barrier that once forced developers to delegate sensitive work to servers has largely dissolved.</p>
+
+              <p>This is not a niche technology. Figma, the collaborative design tool used by millions of professional designers, runs its entire rendering engine in WASM. AutoCAD Web brings CAD software to the browser without a server-side rendering backend. Google Earth Web handles complex 3D globe rendering client-side. These are serious, performance-intensive applications — not toy demos. If a 3D design tool can run natively in your browser, so can a password generator.</p>
+
+              <p>The security model matters too. WASM executes inside the browser's existing sandbox: it cannot access the filesystem, cannot make arbitrary network requests, and cannot escape the tab it runs in. The same constraints that protect you from malicious websites protect your data when you run a privacy-sensitive tool built on WASM.</p>
+
+              <h2>What "Runs in Your Browser" Actually Means</h2>
+              <p>When a website claims a tool "runs entirely in your browser," it is a specific technical claim — but many users aren't sure what it means or how to verify it. Let's demystify it.</p>
+
+              <p>When you visit a website, your browser downloads a collection of files: HTML, CSS, JavaScript (or WASM), and assets. These files are transferred to your machine over HTTPS, cached locally, and then executed. For a client-side tool, that initial download is the only network activity. Everything that happens after — all the computation, all the generation, all the processing — happens on your CPU, reads and writes only to your local memory, and produces results that only you see. No further requests leave your device.</p>
+
+              <p>You can verify this yourself using browser developer tools. Open any page, navigate to the Network tab in DevTools (F12 in most browsers), and clear the log. Then use the tool: generate a password, produce a random result, process some text. Watch the network log. For a properly implemented client-side tool, you will see zero new requests during operation. The network log stays empty. There is nothing to intercept, nothing to log server-side, nothing to breach.</p>
+
+              <p>Contrast this with a server-side tool. Every interaction — every keystroke in some cases, certainly every "generate" button press — triggers a network request. That request contains your input data. It travels to a server, where it is processed, and where it may be logged, analysed, or stored. You can see these requests in the same Network tab: a POST request fires every time you interact with the tool, carrying your data as its payload.</p>
+
+              <p>The verification step is important because "client-side" is a marketing claim as much as a technical one. Not every tool that claims to run locally actually does. DevTools gives you ground truth.</p>
+
+              <h2>The Limits and Trade-offs</h2>
+              <p>Client-side processing is not a universal solution, and intellectual honesty requires acknowledging where it falls short.</p>
+
+              <p>The most significant caveat is that the code itself is downloaded from a server. If that code is tampered with — either at the source or via a man-in-the-middle attack — you could be running malicious logic. This is why two factors are non-negotiable for trustworthy client-side tools: open-source code (so anyone can audit what the tool actually does) and HTTPS (so the code cannot be tampered with in transit). A closed-source client-side tool still requires trusting the operator's good intentions; the advantage over server-side is only that the attack surface is reduced, not eliminated.</p>
+
+              <p>Large machine learning models present a practical barrier. A modern LLM might weigh tens of gigabytes — impractical to ship to every user's browser. For AI-powered tools, some server involvement remains necessary for now, though this boundary is moving as model compression improves and edge inference hardware matures.</p>
+
+              <p>Collaboration and synchronisation inherently require a server. If two users need to share state — a multiplayer game, a shared document, a collaborative playlist — that data must live somewhere both can reach. Client-side architecture cannot solve the synchronisation problem.</p>
+
+              <p>And client-side code must be re-downloaded when it is updated. For applications that need frequent updates, this adds latency compared to a server that updates instantly for all users.</p>
+
+              <p>But for the category of tools this matters most for — privacy-sensitive, single-user utilities like password generation, personal data processing, and random generation — these trade-offs are largely irrelevant. The computation is lightweight enough to run in the browser. There is no collaboration requirement. Open-source code is achievable. HTTPS is standard. For this category, client-side is not just preferable: it is strictly superior. As WASM matures and devices become more powerful, the category of tools that can viably move client-side will only grow.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Your Data, Your Device</h3>
+              <p>Generate passwords entirely in your browser — nothing ever sent to a server.</p>
+              <a href="/tools/password-generator/" class="btn btn--primary">Generate Secure Passwords</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

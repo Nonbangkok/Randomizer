@@ -1,5 +1,9 @@
 pub mod challenge;
 pub mod data;
+pub mod dice;
+pub mod drop_point;
+pub mod gacha;
+pub mod game_idea;
 pub mod name_gen;
 pub mod security;
 

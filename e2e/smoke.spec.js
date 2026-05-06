@@ -11,6 +11,10 @@ const pages = [
   { url: '/tools/password-generator/', titleMatch: /Password/i },
   { url: '/tools/challenge-generator/', titleMatch: /Challenge/i },
   { url: '/tools/backlog-wheel/', titleMatch: /Backlog/i },
+  { url: '/tools/dice-roller/', titleMatch: /Dice/i },
+  { url: '/tools/gacha-simulator/', titleMatch: /Gacha/i },
+  { url: '/tools/game-idea/', titleMatch: /Game Idea/i },
+  { url: '/tools/drop-point/', titleMatch: /Drop Point/i },
   { url: '/blog/', titleMatch: /Blog/i },
 ];
 

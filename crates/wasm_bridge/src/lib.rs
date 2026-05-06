@@ -37,3 +37,41 @@ pub fn generate_challenge(config_json: &str) -> Result<String, JsValue> {
     serde_json::to_string(&rules)
         .map_err(|e| JsValue::from_str(&format!("serialize failed: {e}")))
 }
+
+#[wasm_bindgen]
+pub fn generate_dice(config_json: &str) -> Result<String, JsValue> {
+    let cfg: core::dice::DiceConfig = serde_json::from_str(config_json)
+        .map_err(|e| JsValue::from_str(&format!("invalid config: {e}")))?;
+    let result = core::dice::roll_dice(&cfg)
+        .map_err(|e| JsValue::from_str(&e))?;
+    serde_json::to_string(&result)
+        .map_err(|e| JsValue::from_str(&format!("serialize failed: {e}")))
+}
+
+#[wasm_bindgen]
+pub fn generate_gacha(config_json: &str) -> Result<String, JsValue> {
+    let cfg: core::gacha::GachaConfig = serde_json::from_str(config_json)
+        .map_err(|e| JsValue::from_str(&format!("invalid config: {e}")))?;
+    let result = core::gacha::generate_gacha(&cfg)
+        .map_err(|e| JsValue::from_str(&e))?;
+    serde_json::to_string(&result)
+        .map_err(|e| JsValue::from_str(&format!("serialize failed: {e}")))
+}
+
+#[wasm_bindgen]
+pub fn generate_game_idea(config_json: &str) -> Result<String, JsValue> {
+    let cfg: core::game_idea::GameIdeaConfig = serde_json::from_str(config_json)
+        .map_err(|e| JsValue::from_str(&format!("invalid config: {e}")))?;
+    let result = core::game_idea::generate_game_idea(&cfg);
+    serde_json::to_string(&result)
+        .map_err(|e| JsValue::from_str(&format!("serialize failed: {e}")))
+}
+
+#[wasm_bindgen]
+pub fn generate_drop_point(config_json: &str) -> Result<String, JsValue> {
+    let cfg: core::drop_point::DropPointConfig = serde_json::from_str(config_json)
+        .map_err(|e| JsValue::from_str(&format!("invalid config: {e}")))?;
+    let result = core::drop_point::generate_drop_point(&cfg);
+    serde_json::to_string(&result)
+        .map_err(|e| JsValue::from_str(&format!("serialize failed: {e}")))
+}

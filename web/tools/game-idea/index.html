@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2544127529898767" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Indie Game Idea Generator — Free &amp; Instant | Randomizer</title>
+    <meta name="description" content="Generate random indie game concepts instantly. Combines Genre, Setting, Core Mechanic, and a Twist. Perfect for game jams. Free, runs in your browser." />
+    <link rel="canonical" href="https://randomizers.app/tools/game-idea/" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Indie Game Idea Generator — Free &amp; Instant" />
+    <meta property="og:description" content="Generate random indie game concepts instantly. Combines Genre, Setting, Core Mechanic, and a Twist. Perfect for game jams." />
+    <meta property="og:url" content="https://randomizers.app/tools/game-idea/" />
+    <meta property="og:site_name" content="Randomizer" />
+    <meta name="twitter:card" content="summary" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Indie Game Idea Generator",
+        "url": "https://randomizers.app/tools/game-idea/",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any (web browser)",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "description": "Generate random indie game concepts instantly. Combines Genre, Setting, Core Mechanic, and a Twist. Perfect for game jams."
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+
+    <style>
+      *,::before,::after{box-sizing:border-box;margin:0;padding:0}
+      :root{--color-bg:hsl(0 0% 99%);--color-surface:hsl(0 0% 96%);--color-text:hsl(0 0% 12%);--color-muted:hsl(0 0% 40%);--color-primary:hsl(234 89% 63%);--color-primary-soft:hsl(234 89% 96%);--color-border:hsl(0 0% 88%);--space-sm:8px;--space-md:16px;--space-lg:24px;--radius-md:10px;--header-h:64px;font-family:'Inter',system-ui,sans-serif}
+      [data-theme=dark]{--color-bg:hsl(0 0% 8%);--color-surface:hsl(0 0% 12%);--color-text:hsl(0 0% 92%);--color-muted:hsl(0 0% 60%);--color-border:hsl(0 0% 20%);--color-primary-soft:hsl(234 40% 18%);--color-primary:hsl(234 89% 78%)}
+      body{background:var(--color-bg);color:var(--color-text);min-height:100vh}
+      .app-shell{display:flex;flex-direction:column;min-height:100vh}
+      .site-header{position:sticky;top:0;z-index:100;height:var(--header-h);background:var(--color-bg);border-bottom:1px solid var(--color-border);display:flex;align-items:center}
+      .site-header__inner{width:100%;max-width:64rem;margin:0 auto;padding:0 var(--space-lg);display:flex;align-items:center;justify-content:space-between}
+      .site-header__brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;color:var(--color-text);text-decoration:none}
+      .site-header__brand svg{width:28px;height:28px;color:var(--color-primary)}
+      .site-nav{display:flex;align-items:center;gap:4px}
+      .site-nav a{padding:.4rem .85rem;border-radius:var(--radius-md);font-size:.9rem;font-weight:500;color:var(--color-muted);text-decoration:none}
+      .main{flex:1;padding:var(--space-2xl) 0}
+      .container{max-width:64rem;margin:0 auto;padding:0 var(--space-lg)}
+      .loader{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-md);padding:48px 16px;min-height:280px;text-align:center}
+      .loader__stage{position:relative;width:96px;height:96px;display:flex;align-items:center;justify-content:center}
+      .loader__ring{position:absolute;inset:0;border-radius:50%;border:2px solid var(--color-border);border-top-color:var(--color-primary);animation:loader-spin 1.2s linear infinite}
+      .loader__ring--inner{inset:14px;border-color:transparent;border-right-color:var(--color-primary);opacity:.55;animation-duration:1.8s;animation-direction:reverse}
+      .loader__logo{position:relative;width:48px;height:48px;color:var(--color-primary);animation:loader-breath 2.4s ease-out infinite}
+      .loader__dot{fill:currentColor;opacity:.25;transform-origin:center;animation:loader-dot 1.6s ease-out infinite}
+      .loader__dot--1{animation-delay:0s}.loader__dot--2{animation-delay:.12s}.loader__dot--3{animation-delay:.24s}.loader__dot--4{animation-delay:.36s}.loader__dot--5{animation-delay:.48s}
+      .loader__text{margin:0;font-size:.85rem;color:var(--color-muted);letter-spacing:.06em;text-transform:uppercase}
+      @keyframes loader-spin{to{transform:rotate(360deg)}}
+      @keyframes loader-breath{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+      @keyframes loader-dot{0%,100%{opacity:.25;transform:scale(.85)}40%{opacity:1;transform:scale(1.15)}}
+      @media (prefers-reduced-motion:reduce){.loader__ring,.loader__logo,.loader__dot{animation:none}.loader__dot{opacity:1}}
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div id="loading-state" class="container">
+          <div class="loader" role="status" aria-label="Loading">
+            <div class="loader__stage">
+              <div class="loader__ring"></div>
+              <div class="loader__ring loader__ring--inner"></div>
+              <svg class="loader__logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="4" />
+                <circle class="loader__dot loader__dot--1" cx="8" cy="8" r="1.25" />
+                <circle class="loader__dot loader__dot--2" cx="16" cy="8" r="1.25" />
+                <circle class="loader__dot loader__dot--3" cx="12" cy="12" r="1.25" />
+                <circle class="loader__dot loader__dot--4" cx="8" cy="16" r="1.25" />
+                <circle class="loader__dot loader__dot--5" cx="16" cy="16" r="1.25" />
+              </svg>
+            </div>
+            <p class="loader__text">Loading...</p>
+          </div>
+        </div>
+
+        <div id="main-content" style="display: none;">
+          <div class="container">
+            <h1>Indie Game Idea Generator</h1>
+            <p class="lead">Instant game concepts for jam developers and creative directors. Press Space for a new idea.</p>
+            <div class="card" data-game-idea>
+              <p>Preparing generator...</p>
+            </div>
+            <p class="hint">Tip: press <kbd>Space</kbd> or <kbd>Enter</kbd> to generate a new idea, or click ↻ to reroll a single dimension.</p>
+          </div>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+
+    <script type="module" src="/src/pages/game-idea.ts"></script>
+  </body>
+</html>

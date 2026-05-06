@@ -1,0 +1,109 @@
+.dr {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.dr__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.dr__input-row {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.dr__expr-input {
+  flex: 1;
+  min-width: 200px;
+  font-family: var(--font-mono);
+}
+
+.dr-status {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  min-height: 1.2em;
+}
+
+.dr__result {
+  min-height: 120px;
+}
+
+.dr-result-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-xl) var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  animation: dr-pop var(--duration-normal) var(--ease-out);
+}
+
+.dr-expr-label {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.dr-dice-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+  align-items: center;
+}
+
+.dr-die {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: 2px solid var(--color-border);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.dr-die--kept {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.dr-die--dropped {
+  background: var(--color-surface);
+  color: var(--color-muted);
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.dr-modifier {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  padding: 0 var(--space-xs);
+}
+
+.dr-total {
+  font-size: 3.5rem;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+@keyframes dr-pop {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
