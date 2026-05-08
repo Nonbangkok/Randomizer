@@ -35,6 +35,20 @@ A decision-making tool for gamers with an overwhelming backlog.
 ### ⚔️ Challenge Generator
 Generates hardcore gameplay rules and challenges (e.g., Nuzlocke rules) for titles like Elden Ring or Pokémon.
 
+### 🎲 Dice Roller
+A versatile rolling engine for TTRPGs and board games.
+- **Features:** Supports complex expressions (e.g., `4d6kh3`), custom dice, and cryptographic RNG.
+
+### 🎰 Gacha & Loot Box Simulator
+Simulate pulls for popular games like Genshin Impact and Honkai: Star Rail.
+- **Systems:** Realistic pity systems, soft-pity curves, and custom drop rate editor.
+
+### 💡 Indie Game Idea Generator
+Spark your next project with randomized genres, settings, and mechanics.
+
+### 🪂 Battle Royale Drop Point
+Randomized landing locations for Apex Legends, Warzone, and more.
+
 ---
 
 ## 🛠 Tech Stack (The Performance Edge)
@@ -49,6 +63,7 @@ Generates hardcore gameplay rules and challenges (e.g., Nuzlocke rules) for titl
 ## 📦 Project Structure
 
 ```text
+├── assets/            # Shared assets (logo, images)
 ├── crates/
 │   ├── core/          # Core business logic (Rust)
 │   └── wasm_bridge/   # WASM bridge between Rust and JavaScript
@@ -92,10 +107,11 @@ Generates hardcore gameplay rules and challenges (e.g., Nuzlocke rules) for titl
 ---
 
 ## 🗺 Roadmap
-- [ ] Add **Loot Box / Gacha Simulator**
-- [ ] Implement **Seed-based Generation** for sharing results
+- [x] Add **Loot Box / Gacha Simulator**
+- [x] Implement **Seed-based Generation** for sharing results
+- [ ] Implement **AtloGraph** codebase visualization
 - [ ] Develop **SEO-focused FAQ pages** for higher search ranking
-- [ ] Optimize **Core Web Vitals** to maintain perfect 100 scores
+- [ ] Finalize **Google AdSense** integration
 
 ---
 
