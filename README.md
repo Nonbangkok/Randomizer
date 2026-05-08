@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/logo.svg" alt="Randomizer Logo" width="120" height="120" />
+</p>
+
 # 🎲 Randomizer: The Digital Utility Empire
 
 [![Rust](https://img.shields.io/badge/Language-Rust-orange.svg)](https://www.rust-lang.org/)
