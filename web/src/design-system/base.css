@@ -1,6 +1,9 @@
 *, *::before, *::after { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 64px; /* Match --header-h to prevent sticky header from covering scrolled content */
+}
 
 body {
   margin: 0;

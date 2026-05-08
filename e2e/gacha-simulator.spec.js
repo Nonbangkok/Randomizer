@@ -30,7 +30,7 @@ test('gacha-simulator: 100-pull shows summary with total', async ({ page }) => {
 test('gacha-simulator: custom mode shows tier editor', async ({ page }) => {
   await page.goto('/tools/gacha-simulator/');
   await waitForToolReady(page, '[data-gacha-simulator]');
-  await page.locator('[name="mode"][value="custom"]').click();
+  await page.getByText('Custom', { exact: true }).click();
   await expect(page.locator('[data-gs-custom]')).toHaveClass(/is-open/, { timeout: 2_000 });
   await expect(page.locator('[data-gs-tiers]')).toBeVisible();
 });
@@ -38,7 +38,7 @@ test('gacha-simulator: custom mode shows tier editor', async ({ page }) => {
 test('gacha-simulator: HSR preset pulls correctly', async ({ page }) => {
   await page.goto('/tools/gacha-simulator/');
   await waitForToolReady(page, '[data-gacha-simulator]');
-  await page.locator('[name="mode"][value="honkai_star_rail"]').click();
+  await page.getByText('HSR', { exact: true }).click();
   await page.locator('[data-gs-count="10"]').click();
   await page.locator('#gs-pull-btn').click();
   const count = await page.locator('.gs-pull').count();
