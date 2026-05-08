@@ -106,15 +106,6 @@ Randomized landing locations for Apex Legends, Warzone, and more.
 
 ---
 
-## 🗺 Roadmap
-- [x] Add **Loot Box / Gacha Simulator**
-- [x] Implement **Seed-based Generation** for sharing results
-- [ ] Implement **AtloGraph** codebase visualization
-- [ ] Develop **SEO-focused FAQ pages** for higher search ranking
-- [ ] Finalize **Google AdSense** integration
-
----
-
 ## 📄 License
 This project is licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
 
