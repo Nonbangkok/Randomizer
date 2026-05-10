@@ -53,6 +53,11 @@ Randomized landing locations for Apex Legends, Warzone, and more.
 Get instant Yes/No answers or pick from custom choice lists.
 - **Features:** Supports custom options, weighted selection, and seeded randomness for shareable decisions.
 
+### ✍️ Content Library (Blog)
+A comprehensive collection of 80+ SEO-optimized articles.
+- **Topics:** Cybersecurity, gaming strategies, the science of randomness, and creative guides.
+- **Optimization:** Built for high visibility and user engagement to drive organic growth.
+
 ---
 
 ## 🛠 Tech Stack (The Performance Edge)
