@@ -2,6 +2,7 @@ import { showToast } from '../../lib/toast.js';
 import { makeId, pushHistory, type StorageEntry } from '../../lib/storage.js';
 import { mountHistoryPanel, favoriteButton } from '../../lib/history-panel.js';
 import { readParams, writeParams, copyShareLink, shareButtonHtml } from '../../lib/share.js';
+import { mountAd } from '../../lib/ads.js';
 import { getWasm } from '../../lib/wasm.js';
 import { escapeHtml, hydrateForm, bindFavoriteDelegation, type HydrateRule } from '../../lib/dom.js';
 
@@ -141,6 +142,8 @@ export function mountDecisionMaker(root: HTMLElement): DecisionMakerHandle {
   const historyEl = root.querySelector<HTMLElement>('[data-dm-history]')!;
   mountHistoryPanel(historyEl, { tool: TOOL, title: 'Decision history' });
 
+  mountAd(root.querySelector('[data-ad-slot="dm-leaderboard"]'), { format: 'leaderboard' });
+
   return { generate };
 }
 
@@ -179,6 +182,8 @@ function template(): string {
         ${shareButtonHtml({ label: 'Share' })}
         <span class="dm-status" data-dm-status aria-live="polite"></span>
       </div>
+
+      <div data-ad-slot="dm-leaderboard"></div>
 
       <div class="dm-result" data-dm-result></div>
     </form>
