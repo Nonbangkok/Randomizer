@@ -75,3 +75,12 @@ pub fn generate_drop_point(config_json: &str) -> Result<String, JsValue> {
     serde_json::to_string(&result)
         .map_err(|e| JsValue::from_str(&format!("serialize failed: {e}")))
 }
+#[wasm_bindgen]
+pub fn generate_decision(config_json: &str) -> Result<String, JsValue> {
+    let cfg: core::decision::DecisionConfig = serde_json::from_str(config_json)
+        .map_err(|e| JsValue::from_str(&format!("invalid config: {e}")))?;
+    let result = core::decision::generate_decision(&cfg)
+        .map_err(|e| JsValue::from_str(&e))?;
+    serde_json::to_string(&result)
+        .map_err(|e| JsValue::from_str(&format!("serialize failed: {e}")))
+}

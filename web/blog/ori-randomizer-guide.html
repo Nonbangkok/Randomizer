@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Ori and the Will of the Wisps Randomizer Guide — Randomizer</title>
+    <meta name="description" content="Learn how to install and play the Ori and the Will of the Wisps randomizer. Experience the beauty of Niwen with randomized abilities and items." />
+    <link rel="canonical" href="https://randomizers.app/blog/ori-randomizer-guide.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Gaming & Modding</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 8 MIN READ</span>
+              <h1>Ori and the Will of the Wisps Randomizer: How to Install and Play</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>*Ori and the Will of the Wisps* is one of the most visually stunning and mechanically tight Metroidvanias ever made. But once you've 100% completed it, what's next? Enter the **Ori and the Will of the Wisps randomizer**, a mod that shuffles abilities, shards, and life/spirit cells to give the game infinite replayability. Here is your guide on how to get started.</p>
+
+              <h2>What is Randomized?</h2>
+              <p>The mod shuffles almost all collectible items in the world. You might find "Double Jump" in a hidden corner of Luma Pools, or "Bash" in the Kwolok’s Hollow. This forces you to explore the game in a completely non-linear way, often requiring creative use of your current abilities to reach new areas.</p>
+
+              <h2>Installation Steps</h2>
+              <ol>
+                <li><strong>The Base Game:</strong> You'll need a legitimate copy of the game on PC (Steam or Windows Store).</li>
+                <li><strong>Download the Randomizer:</strong> Head over to the official community GitHub or Discord to find the latest "WotW Randomizer" launcher.</li>
+                <li><strong>Run the Setup:</strong> The launcher will automatically detect your game installation and patch the necessary files. Don't worry, it usually doesn't affect your vanilla save files.</li>
+                <li><strong>Generate a Seed:</strong> Choose your settings—like "Balanced" or "Hardcore"—and generate a unique seed.</li>
+                <li><strong>Launch:</strong> Use the randomizer launcher to start the game. You'll know it worked if the main menu has a custom randomizer logo!</li>
+              </ol>
+
+              <h2>Tips for Your First Run</h2>
+              <ul>
+                <li><strong>Check Your Map:</strong> The randomizer includes a custom map that shows which items are "reachable" with your current set of abilities. This is a lifesaver for beginners.</li>
+                <li><strong>Master Your Shards:</strong> Since you might not have key abilities early on, combat shards like "Spirit Smash" or "Sentry" become much more important.</li>
+                <li><strong>Don't Panic:</strong> If you feel stuck, the "Logic" of the randomizer ensures that there is *always* a way to progress. You might just need to find a hidden secret or master a difficult jump.</li>
+              </ul>
+
+              <h2>Conclusion</h2>
+              <p>The **Ori and the Will of the Wisps randomizer** breathes new life into Niwen. It turns a beautiful story into a challenging, unpredictable puzzle that will test your platforming skills and game knowledge like never before.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Ready to shuffle your world?</h3>
+              <p>Check out our suite of private, browser-based tools for more randomness.</p>
+              <a href="/" class="btn btn--primary">View Tools</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

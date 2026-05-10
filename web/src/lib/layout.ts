@@ -18,6 +18,7 @@ const NAV_ITEMS: readonly NavItem[] = [
   { key: 'gacha', href: '/tools/gacha-simulator/', label: 'Gacha' },
   { key: 'game-idea', href: '/tools/game-idea/', label: 'Game Idea' },
   { key: 'drop', href: '/tools/drop-point/', label: 'Drop Point' },
+  { key: 'decision', href: '/tools/decision-maker/', label: 'Decision Maker' },
   { key: 'blog', href: '/blog/', label: 'Blog' },
 ];
 
@@ -35,7 +36,7 @@ function buildHeader({ activePage = '' }: MountHeaderOptions): HTMLElement {
     return `<a href="${item.href}"${current}>${item.label}</a>`;
   }).join('');
   const wrapper = document.createElement('div');
-  wrapper.innerHTML = `<header class="site-header"><div class="site-header__inner"><a href="/" class="site-header__brand" aria-label="Randomizer home">${BRAND_SVG}<span>Randomizer</span></a><nav class="site-nav" aria-label="Primary">${links}${THEME_TOGGLE}</nav></div></header>`;
+  wrapper.innerHTML = `<header class="site-header"><div class="site-header__inner"><a href="/" class="site-header__brand" aria-label="Randomizer home">${BRAND_SVG}<span>Randomizer</span></a><nav class="site-nav" aria-label="Primary">${links}</nav><div class="site-header__actions">${THEME_TOGGLE}</div></div></header>`;
   return wrapper.firstElementChild as HTMLElement;
 }
 

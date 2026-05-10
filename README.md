@@ -49,6 +49,10 @@ Spark your next project with randomized genres, settings, and mechanics.
 ### 🪂 Battle Royale Drop Point
 Randomized landing locations for Apex Legends, Warzone, and more.
 
+### 🎯 Decision Maker
+Get instant Yes/No answers or pick from custom choice lists.
+- **Features:** Supports custom options, weighted selection, and seeded randomness for shareable decisions.
+
 ---
 
 ## 🛠 Tech Stack (The Performance Edge)

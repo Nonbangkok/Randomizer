@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Gacha Luck: How Our Simulator Mimics Real Pulls — Randomizer</title>
+    <meta name="description" content="Ever wondered how gacha games calculate your luck? Explore the logic behind our Gacha Simulator and how it mimics the mechanics of real pulls." />
+    <link rel="canonical" href="https://randomizers.app/blog/gacha-simulator-logic.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Niche & Specific</span>
+              <span class="blog-meta">MAY 10, 2026 • 8 MIN READ</span>
+              <h1>Gacha Luck: How the Randomizer Gacha Simulator Mimics Real Pulls</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>Gacha games like *Genshin Impact*, *Honkai: Star Rail*, and *Fate/Grand Order* have taken the gaming world by storm. At their heart lies a complex system of probability. To help players understand their odds without spending a dime, we developed the **Gacha Simulator**. Here is the logic behind how it mimics real-world gacha pulls.</p>
+
+              <h2>1. The "Pity" System</h2>
+              <p>Most modern gacha games don't use pure randomness. They use a "Pity" system that guarantees a high-tier reward after a certain number of failed pulls. Our simulator replicates this perfectly, allowing you to see how your odds change as you get closer to your 80th or 90th pull.</p>
+
+              <h2>2. Weighted Probability (Rates)</h2>
+              <p>In a real gacha, a 5-star character might have a 0.6% drop rate, while a 3-star item has an 80% rate. Our **WASM-based engine** handles these weighted distributions with precision, ensuring that a "10-pull" in our simulator feels identical to a 10-pull in your favorite game.</p>
+
+              <h2>3. The "Soft Pity" Curve</h2>
+              <p>Top-tier games often increase your odds slightly *before* you hit the guaranteed pity. We’ve modeled these hidden curves in our simulator, providing a realistic representation of how "luck" actually functions in these systems.</p>
+
+              <h2>4. Why Use a Simulator?</h2>
+              <ul>
+                <li><strong>Satisfy the Urge:</strong> Pulling for fun without the financial risk.</li>
+                <li><strong>Budget Planning:</strong> See how many pulls you might realistically need to get the character you want.</li>
+                <li><strong>Understanding Odds:</strong> Visualizing how rare a 0.6% drop rate actually is.</li>
+              </ul>
+
+              <h2>Conclusion</h2>
+              <p>The **randomizer gacha simulator** is a tool for education and entertainment. By pulling back the curtain on gacha mechanics, we help you understand the math behind the magic—and hopefully, save some money along the way.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Test your luck now.</h3>
+              <p>Try our realistic Gacha Simulator for free.</p>
+              <a href="/tools/gacha-simulator/" class="btn btn--primary">Use Gacha Sim</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

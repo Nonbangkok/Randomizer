@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Archipelago Randomizer: The Multi-Game Chaos — Randomizer</title>
+    <meta name="description" content="What is Archipelago randomizer? Discover the multi-game system where your items are hidden in your friend's game world and vice versa." />
+    <link rel="canonical" href="https://randomizers.app/blog/what-is-archipelago-randomizer.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Gaming & Modding</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 9 MIN READ</span>
+              <h1>Archipelago Randomizer: The Multi-Game Chaos You Need to Try</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>Imagine you're playing *The Legend of Zelda: A Link to the Past*, but the Master Sword isn't in its pedestal. Instead, it’s hidden inside a chest in your friend’s *Factorio* base. Meanwhile, your friend is stuck because their research requires a blue science pack that you just found in a dungeon in Hyrule. This is the world of **Archipelago**, and it's the most ambitious project in the history of randomizers.</p>
+
+              <h2>What is Archipelago Randomizer?</h2>
+              <p>Archipelago is a multi-world, multi-game randomizer framework. It connects different games through a central server, allowing items to be shuffled between them. It supports a massive variety of games, from classics like *Super Mario 64* to modern titles like *Hollow Knight*, *Stardew Valley*, and even *Elden Ring*.</p>
+
+              <h2>How It Works</h2>
+              <ol>
+                <li><strong>The Multi-world:</strong> A group of players (or one player playing multiple games) creates a "room" on the Archipelago server.</li>
+                <li><strong>The Pool:</strong> All items from all participating games are thrown into one giant pool.</li>
+                <li><strong>The Shuffle:</strong> The server shuffles these items and places them into locations across all games.</li>
+                <li><strong>The Interaction:</strong> When you find an item in your game, if it belongs to someone else, the server instantly "sends" it to them.</li>
+              </ol>
+
+              <h2>Why It’s So Addictive</h2>
+              <p>Archipelago turns gaming into a massive, social logic puzzle. You have to communicate with your teammates to figure out who has what and who needs to progress next. It creates "hero moments" where you find exactly the item your friend has been stuck without for two hours.</p>
+
+              <h2>Getting Started</h2>
+              <p>To join the **what is archipelago randomizer** movement, you’ll need to download the Archipelago client and have legitimate copies of the games you want to play. The community is incredibly active on Discord and is always looking for new players to join "multi-worlds."</p>
+
+              <h2>Conclusion</h2>
+              <p>Archipelago is the final evolution of the randomizer genre. It breaks down the walls between different games and creates a shared, chaotic universe that offers hundreds of hours of unique gameplay. If you have a group of gaming friends, you owe it to yourselves to try it at least once.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Love the idea of multi-game chaos?</h3>
+              <p>Try our Game Idea Generator to come up with your own crazy crossovers.</p>
+              <a href="/tools/game-idea/" class="btn btn--primary">Get Game Ideas</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

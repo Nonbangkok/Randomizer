@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>How the Randomizer Bot 5.4 Update Changed Discord — Randomizer</title>
+    <meta name="description" content="Explore the features of the Randomizer Bot 5.4 update for Discord. Learn how the new features are transforming server engagement and moderation." />
+    <link rel="canonical" href="https://randomizers.app/blog/discord-randomizer-bot-5-4.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Niche & Specific</span>
+              <span class="blog-meta">MAY 10, 2026 • 6 MIN READ</span>
+              <h1>How the Randomizer Bot 5.4 Update Changed the Discord Experience</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>Discord is the hub of modern gaming communities, and bots are its lifeblood. Among the most popular is the **Randomizer Bot**, and its recent **5.4 update** has introduced features that are fundamentally changing how servers manage engagement, giveaways, and daily interaction. Here’s a look at the key changes.</p>
+
+              <h2>1. Advanced Weighted Giveaways</h2>
+              <p>The 5.4 update introduced a complex weighting system. Server admins can now give "extra luck" to active members, boosters, or long-time supporters. This ensures that rewards are random but also reward those who contribute most to the community.</p>
+
+              <h2>2. Multi-Target Shuffling</h2>
+              <p>In previous versions, shuffling lists was a simple process. In 5.4, the bot can now handle "multi-target" randomization. For example, a server can use a single command to shuffle a list of players, a list of teams, and a list of game modes all at once, creating a complete "Tournament Bracket" in seconds.</p>
+
+              <h2>3. Interactive Polls with "Random Reveal"</h2>
+              <p>A new feature allows admins to create polls where the results are hidden until a random "winner" is picked. This adds an element of suspense to server decisions and prevents "bandwagon" voting.</p>
+
+              <h2>4. Performance and Stability</h2>
+              <p>Under the hood, the bot was rewritten to handle much larger data sets. Whether you're randomizing a list of 10 friends or 10,000 community members, the response time is now near-instant, thanks to new cloud-based processing optimizations.</p>
+
+              <h2>Conclusion</h2>
+              <p>The **randomizer bot 5.4** update is a massive step forward for Discord community management. It turns simple random tools into a powerful engagement engine that helps server owners build more active, fair, and fun communities. If you haven't updated your bot yet, now is the time!</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Looking for more ways to randomize?</h3>
+              <p>Check out our suite of private, browser-based tools for your next server event.</p>
+              <a href="/" class="btn btn--primary">View All Tools</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

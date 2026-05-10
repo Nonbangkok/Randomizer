@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Can't Decide? Let a 'Where to Eat' Randomizer Pick — Randomizer</title>
+    <meta name="description" content="Stuck in a dinner debate? Learn how a 'where to eat' randomizer can solve your food indecision in seconds and help you discover new favorites." />
+    <link rel="canonical" href="https://randomizers.app/blog/where-to-eat-randomizer.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Creative & Practical</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 4 MIN READ</span>
+              <h1>Can't Decide? Let a 'Where to Eat' Randomizer Pick Your Next Meal</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>It’s the world’s most common argument: "What do you want for dinner?" "I don't know, what do *you* want?" This cycle of indecision wastes time and often leads to the same boring choices. A **where to eat randomizer** is the ultimate tool for ending the debate and adding some excitement to your meals.</p>
+
+              <h2>How It Works</h2>
+              <p>The logic is simple: you provide the options, and the math provides the result. By using a digital tool, you remove the social pressure of picking a "winner" among your friends or family.</p>
+
+              <h2>Methods for Picking a Meal</h2>
+              <ul>
+                <li><strong>The List Shuffle:</strong> Paste a list of your top 10 local spots and pick the one at the top.</li>
+                <li><strong>Yes/No Elimination:</strong> Use a decision maker to quickly "Yes/No" specific cuisines until you find a winner.</li>
+                <li><strong>Spin the Wheel:</strong> Put your favorite dishes on a virtual wheel for a fun, visual selection process.</li>
+              </ul>
+
+              <h2>The Subconscious Reveal</h2>
+              <p>One of the best ways to use a **where to eat randomizer** is as a preference detector. If the tool picks "Sushi" and everyone immediately sighs in disappointment, you've just learned that nobody actually wanted sushi! This allows you to eliminate options and reach a decision even faster.</p>
+
+              <h2>Conclusion</h2>
+              <p>Food should be a joy, not a chore. By using a randomizer, you can spend less time arguing and more time enjoying your meal. Let the math handle the stress!</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Stop the dinner debate now.</h3>
+              <p>Use our Decision Maker to pick your next meal in seconds.</p>
+              <a href="/tools/decision-maker/" class="btn btn--primary">Use Decision Maker</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

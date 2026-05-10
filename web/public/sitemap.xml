@@ -3,13 +3,13 @@
   <!-- Core Pages -->
   <url>
     <loc>https://randomizers.app/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://randomizers.app/blog/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-10</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
@@ -17,25 +17,55 @@
   <!-- Tools -->
   <url>
     <loc>https://randomizers.app/tools/name-generator/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://randomizers.app/tools/password-generator/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://randomizers.app/tools/backlog-wheel/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://randomizers.app/tools/challenge-generator/</loc>
-    <lastmod>2026-05-05</lastmod>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://randomizers.app/tools/dice-roller/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://randomizers.app/tools/gacha-simulator/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://randomizers.app/tools/game-idea/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://randomizers.app/tools/drop-point/</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://randomizers.app/tools/decision-maker/</loc>
+    <lastmod>2026-05-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -54,6 +84,69 @@
   <url><loc>https://randomizers.app/blog/ai-vs-random-generation.html</loc><lastmod>2026-05-05</lastmod><priority>0.6</priority></url>
   <url><loc>https://randomizers.app/blog/password-entropy-explained.html</loc><lastmod>2026-05-05</lastmod><priority>0.6</priority></url>
   <url><loc>https://randomizers.app/blog/roleplay-backstory-tips.html</loc><lastmod>2026-05-05</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/reliable-decision-maker.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/science-of-randomness.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-for-classroom.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/google-randomizer-history.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/what-is-a-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/free-tools-randomize-teams.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/google-randomizer-truth.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/evolution-random-generators.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-1-4-guide.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-icebreaker-questions.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/how-to-do-randomizers.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/how-to-randomize-pokemon.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/static-pokemon-randomizers.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/biome-randomizers-glitches.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/silksong-randomizer-when.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/ori-randomizer-guide.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/pokemon-randomizer-no-java.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-global-vs-area.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-nuzlocke-challenge.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/multiplayer-randomizer-coop.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/what-is-archipelago-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/elden-ring-randomizer-install.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/totk-randomizer-guide.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/subnautica-randomizer-bot.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/what-to-draw-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/where-to-eat-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/best-food-randomizers.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/best-name-generators.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-excel-guide.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-wheel-ideas.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/fantasy-name-generator-worldbuilding.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-word-generator-writing.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-drawing-challenges.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/yes-or-no-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-for-names-list.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/dandys-world-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/tiktok-randomizer-challenges.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/youtube-randomizer-engagement.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/twitch-randomizer-bot.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/dandys-world-tier-list.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomness-social-media-strategy.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-bot-debate.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/gacha-simulator-logic.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/drop-point-randomizer-meta.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/password-randomizer-security.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/discord-randomizer-bot-5-4.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-gambling-odds.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/wasm-rust-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/choose-reliable-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-apps-giveaways.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/pick-random-winner.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/top-rated-randomizers.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/how-to-make-randomizer-in-jjs.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/what-is-randomizer-run-dandys-world.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-for-secret-santa.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/dandys-world-randomizer-tips.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-for-tiktok-auctions.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/custom-egg-randomizer-script.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/tork-randomizer.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-machine.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-dice.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/randomizer-spinner.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://randomizers.app/blog/games-like-randomizer-roblox.html</loc><lastmod>2026-05-10</lastmod><priority>0.6</priority></url>
 
   <!-- Legal Pages -->
   <url><loc>https://randomizers.app/privacy-policy.html</loc><lastmod>2026-05-05</lastmod><priority>0.3</priority></url>

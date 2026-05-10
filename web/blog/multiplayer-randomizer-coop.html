@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Multiplayer Chaos: Randomizers with Seamless Co-op — Randomizer</title>
+    <meta name="description" content="Learn how to set up a randomizer with seamless co-op for games like Elden Ring and Pokémon. Experience the chaos of randomness with your friends." />
+    <link rel="canonical" href="https://randomizers.app/blog/multiplayer-randomizer-coop.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Gaming & Modding</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 7 MIN READ</span>
+              <h1>Multiplayer Chaos: How to Set Up a Randomizer with Seamless Co-op</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>Randomizers are usually solo experiences. But what happens when you combine the chaos of shuffled items and enemies with the unpredictability of a teammate? You get a **multiplayer randomizer** experience. Whether it's Elden Ring or Pokémon, here is how you set up a randomizer and seamless co-op run.</p>
+
+              <h2>The Challenge of Synchronization</h2>
+              <p>The most important rule of a multiplayer randomizer is that **everyone must use the same seed**. If your teammate finds a key where you find a health potion, your game worlds will de-sync, leading to crashes or "ghost items" that only one person can see.</p>
+
+              <h2>Case Study: Elden Ring Seamless Co-op</h2>
+              <p>The Elden Ring modding scene has perfected this. By using the "Seamless Co-op" mod alongside a randomizer, you can explore the Lands Between together. Key steps include:</p>
+              <ul>
+                <li><strong>Same Mod Versions:</strong> Ensure everyone is on the exact same version of the game and both mods.</li>
+                <li><strong>Shared Seed:</strong> The host generates the seed and shares the exact string with all joiners.</li>
+                <li><strong>Synchronized Settings:</strong> Every toggle—like "Randomize Bosses" or "Fog Wall Randomizer"—must be identical.</li>
+              </ul>
+
+              <h2>Multi-world Randomization (Archipelago)</h2>
+              <p>If you want something even more complex, look into **Archipelago**. This system allows multiple people playing *different games* (e.g., one playing Zelda, one playing Hollow Knight) to have their items shuffled into each other's worlds. Finding an item in your game might unlock a door for your friend in theirs!</p>
+
+              <h2>Best Practices for Co-op Runs</h2>
+              <ol>
+                <li><strong>Communication:</strong> Since items are shuffled, you need to constantly tell your partner what you've found and where.</li>
+                <li><strong>Patience:</strong> Modded multiplayer is inherently more unstable than vanilla. Be prepared for occasional restarts.</li>
+                <li><strong>Recording:</strong> Record your sessions! Multiplayer randomizers lead to some of the funniest and most chaotic moments in gaming.</li>
+              </ol>
+
+              <h2>Conclusion</h2>
+              <p>Playing a **randomizer and seamless co op** session is one of the best ways to experience your favorite games with friends. It turns a familiar world into a collaborative puzzle that you have to solve together.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Need to pick a landing spot or a character?</h3>
+              <p>Use our Drop Point Randomizer for your next co-op session.</p>
+              <a href="/tools/drop-point/" class="btn btn--primary">Get a Drop Point</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

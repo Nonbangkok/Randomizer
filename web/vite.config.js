@@ -21,6 +21,7 @@ export default defineConfig({
         gachaSimulator: resolve(__dirname, 'tools/gacha-simulator/index.html'),
         gameIdea: resolve(__dirname, 'tools/game-idea/index.html'),
         dropPoint: resolve(__dirname, 'tools/drop-point/index.html'),
+        decisionMaker: resolve(__dirname, 'tools/decision-maker/index.html'),
 
         blogIndex: resolve(__dirname, 'blog/index.html'),
         blogFantasyNames: resolve(__dirname, 'blog/how-to-pick-fantasy-names.html'),

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Artist's Block? Use a 'What to Draw' Randomizer — Randomizer</title>
+    <meta name="description" content="Stuck with artist's block? Discover how to use a 'what to draw' randomizer to find instant inspiration and start your next masterpiece." />
+    <link rel="canonical" href="https://randomizers.app/blog/what-to-draw-randomizer.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Creative & Practical</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 5 MIN READ</span>
+              <h1>Artist's Block? Use a 'What to Draw' Randomizer for Instant Inspiration</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>Every artist, from beginners to professionals, has faced the dreaded "Artist's Block." You have the tools, you have the time, but you have zero ideas. Instead of staring at a blank canvas for hours, many creators are turning to a **what to draw randomizer** to jumpstart their creativity.</p>
+
+              <h2>Why Randomness Beats "Thinking"</h2>
+              <p>When we try to think of an idea, we often fall into established loops. We draw what we’re comfortable with. A randomizer forces you to combine elements you might never have considered, like "A cyberpunk knight riding a giant snail." This friction is exactly what's needed to break the block.</p>
+
+              <h2>How to Use a Drawing Randomizer</h2>
+              <ul>
+                <li><strong>Combine Genres:</strong> Pick a character type and a setting from two different genres.</li>
+                <li><strong>Attribute Shuffling:</strong> Randomize color palettes, poses, or emotions.</li>
+                <li><strong>Time Limits:</strong> Combine a random prompt with a 5-minute timer for a "creative sprint."</li>
+              </ul>
+
+              <h2>Top Prompt Ideas</h2>
+              <p>If you're using our **List Randomizer** or **Decision Maker**, try feeding it these categories to generate prompts:</p>
+              <ul>
+                <li><strong>Subject:</strong> Animal, Robot, Mythical Creature, Historical Figure.</li>
+                <li><strong>Action:</strong> Running, Sleeping, Casting a spell, Eating a taco.</li>
+                <li><strong>Setting:</strong> Underwater, Deep space, A Victorian library, A neon city.</li>
+              </ul>
+
+              <h2>Conclusion</h2>
+              <p>The goal of a **what to draw randomizer** isn't to give you a perfect idea, but to give you a starting point. Once you have that first spark, your natural creativity will take over and lead you to your next masterpiece.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Start your next masterpiece now.</h3>
+              <p>Use our List Randomizer to shuffle your prompt categories.</p>
+              <a href="/" class="btn btn--primary">Use List Tool</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

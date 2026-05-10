@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>The Future of WASM: Why We Chose Rust for Our Tools — Randomizer</title>
+    <meta name="description" content="Explore the technical side of Randomizer.app. Learn why we chose Rust and WebAssembly (WASM) to build our private, high-performance randomization tools." />
+    <link rel="canonical" href="https://randomizers.app/blog/wasm-rust-randomizer.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Niche & Specific</span>
+              <span class="blog-meta">MAY 10, 2026 • 9 MIN READ</span>
+              <h1>The Future of WASM: Why We Chose Rust for Our Randomizer Tools</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>When we set out to build Randomizer.app, we had a clear mission: provide the fastest, most private, and most reliable randomization tools on the web. To achieve this, we had to move away from traditional JavaScript and toward a modern, high-performance stack. Here is why we chose **Rust and WebAssembly (WASM)** for our engine.</p>
+
+              <h2>1. Performance Beyond JavaScript</h2>
+              <p>While modern JavaScript is fast, it struggles with complex mathematical calculations and large data sets (like shufflings lists of 100,000 items). **Rust**, being a low-level language, allows us to write highly optimized code that performs near native speeds. By compiling this code to **WASM**, we can run that performance directly in your browser.</p>
+
+              <h2>2. Privacy by Design</h2>
+              <p>Most randomizers send your data to a server, process it, and send the result back. This is slow and raises privacy concerns. By using WASM, we can run the entire randomization engine **locally on your device**. Your lists, names, and passwords never leave your browser. This "Local-First" approach is the future of the web.</p>
+
+              <h2>3. Verifiable Randomness</h2>
+              <p>Rust allows us to use industry-standard, cryptographically secure pseudo-random number generators (CSPRNG) like `ChaCha20`. These algorithms are verifiable and provide a level of randomness that standard JavaScript `Math.random()` simply can’t match, ensuring total fairness for every user.</p>
+
+              <h2>4. Cross-Platform Reliability</h2>
+              <p>WASM is a universal binary format. This means the exact same high-performance Rust code runs on your desktop, your iPhone, and your Android tablet without any changes. It provides a consistent, bug-free experience across the entire digital ecosystem.</p>
+
+              <h2>Conclusion</h2>
+              <p>The choice to use **Rust and WASM** was about more than just speed—it was about respect for our users' privacy and a commitment to technical excellence. As the web continues to evolve, we will continue to use the best technology available to provide the world's most reliable randomization tools.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Experience the future of the web.</h3>
+              <p>Try our suite of private, high-performance WASM tools today.</p>
+              <a href="/" class="btn btn--primary">View All Tools</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

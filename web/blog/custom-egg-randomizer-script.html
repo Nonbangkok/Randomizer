@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>How to Create a Custom Egg Randomizer Script — Randomizer</title>
+    <meta name="description" content="Master the art of scripting! Learn how to create a custom egg randomizer script for your next game or mod using modern coding techniques." />
+    <link rel="canonical" href="https://randomizers.app/blog/custom-egg-randomizer-script.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Dev & Social</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 8 MIN READ</span>
+              <h1>Scripting for Fun: How to Create a Custom Egg Randomizer Script</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>In many modern games and mods, "Egg Randomizers" are a popular way to handle loot, characters, or rewards. Whether you're building a game in Unity, Roblox, or using a framework like JJS, knowing **how to create a custom egg randomizer script** is a valuable skill. Here is a breakdown of the logic and implementation.</p>
+
+              <h2>1. The "Egg" Concept</h2>
+              <p>An "Egg" is essentially a container for a random variable. When a player "opens" or "hatches" it, the script runs an algorithm to pick an item from a pre-defined table. The key to a good script is balancing the "drop rates" so that rare items feel special.</p>
+
+              <h2>2. Designing the Loot Table</h2>
+              <p>Before coding, define your probabilities. For example:</p>
+              <ul>
+                <li><strong>Common (80%):</strong> Basic items.</li>
+                <li><strong>Rare (15%):</strong> Enhanced items.</li>
+                <li><strong>Legendary (5%):</strong> Game-changing items.</li>
+              </ul>
+
+              <h2>3. Basic Implementation Logic</h2>
+              <pre><code>
+// Pseudo-code for Egg Randomizer
+function hatchEgg() {
+    let roll = Math.random() * 100;
+    
+    if (roll < 5) {
+        return "Legendary Item";
+    } else if (roll < 20) {
+        return "Rare Item";
+    } else {
+        return "Common Item";
+    }
+}
+              </code></pre>
+
+              <h2>4. Adding "Luck" Modifiers</h2>
+              <p>To make your script more advanced, add modifiers that increase the player's luck under certain conditions (e.g., using a "Luck Potion"). This adds another layer of strategy to your game.</p>
+
+              <h2>Conclusion</h2>
+              <p>Learning **how to do egg randomizer script** development is a great entry point into game design. It combines probability, logic, and user experience into a single, satisfying mechanic. Start small, test your odds, and build something amazing!</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Need high-performance randomness for your scripts?</h3>
+              <p>Explore our WASM-based randomizer engine for your next project.</p>
+              <a href="/" class="btn btn--primary">View All Tools</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

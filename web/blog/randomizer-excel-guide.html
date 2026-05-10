@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>How to Effectively Use a Randomizer in Excel — Randomizer</title>
+    <meta name="description" content="Master your data! Learn how to use a randomizer in Excel to shuffle lists, pick samples, and generate test data for your projects." />
+    <link rel="canonical" href="https://randomizers.app/blog/randomizer-excel-guide.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Creative & Practical</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 7 MIN READ</span>
+              <h1>Mastering Data: How to Effectively Use a Randomizer in Excel</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>Excel is the world's most powerful data tool, but many users don't realize it has built-in features for randomization. Whether you need to pick a random sample for an audit, shuffle a mailing list, or generate dummy data for a mockup, knowing **how to use a randomizer in excel** is a vital skill. Here are the three most effective methods.</p>
+
+              <h2>Method 1: The RAND() and RANDBETWEEN() Functions</h2>
+              <p>These are the simplest ways to get random numbers into a cell:</p>
+              <ul>
+                <li><strong>=RAND():</strong> Generates a random decimal between 0 and 1.</li>
+                <li><strong>=RANDBETWEEN(bottom, top):</strong> Generates a random whole number between two values you define.</li>
+              </ul>
+
+              <h2>Method 2: Shuffling a List (Sort by Random)</h2>
+              <p>To shuffle a list of names or data:</p>
+              <ol>
+                <li>Create a new column next to your data.</li>
+                <li>Fill that column with the `=RAND()` formula.</li>
+                <li>Sort your entire table based on that random column.</li>
+                <li>Your data is now randomized! You can then delete the random column.</li>
+              </ol>
+
+              <h2>Method 3: Picking a Random Item with INDEX and RANDBETWEEN</h2>
+              <p>To pick a single random item from a list (A1 to A10), use this formula: <br>
+              <code>=INDEX(A1:A10, RANDBETWEEN(1, 10))</code></p>
+
+              <h2>A Note on Volatility</h2>
+              <p>Excel's random functions are "volatile," meaning they recalculate every time you make a change to the sheet. To "freeze" your random results, copy the cells and use **Paste Special -> Values**.</p>
+
+              <h2>Conclusion</h2>
+              <p>While Excel is great for data, its randomization features can be cumbersome for quick tasks. For shuffles and picks that don't require a spreadsheet, our **web-based list tools** are often much faster and more intuitive.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Need a faster way to shuffle a list?</h3>
+              <p>Our private web tools handle list randomization in one click.</p>
+              <a href="/" class="btn btn--primary">Use List Tool</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

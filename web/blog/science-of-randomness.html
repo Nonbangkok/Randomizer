@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>The Science of Randomness: What is the Purpose of an RNG? — Randomizer</title>
+    <meta name="description" content="What is the purpose of a random number generator? Explore the science of randomness, from atmospheric noise to the algorithms powering your favorite apps." />
+    <link rel="canonical" href="https://randomizers.app/blog/science-of-randomness.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">AI & Informational</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 7 MIN READ</span>
+              <h1>The Science of Randomness: What is the Purpose of a Random Number Generator?</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>To the average user, a "random" number is just a digit that appears out of nowhere. But in the world of computer science, randomness is a deeply complex and vital field. So, <strong>what is the purpose of a random number generator</strong>, and why should we care?</p>
+
+              <h2>True Randomness vs. Pseudo-Randomness</h2>
+              <p>There are two main types of randomness in the digital world:</p>
+              <ul>
+                <li><strong>TRNG (True Random Number Generator):</strong> These use physical processes, like radioactive decay or atmospheric noise, to create data that is fundamentally unpredictable.</li>
+                <li><strong>PRNG (Pseudo-Random Number Generator):</strong> These use mathematical algorithms (like the Mersenne Twister or PCG) to generate sequences that <em>look</em> random but are actually deterministic if you know the starting "seed."</li>
+              </ul>
+
+              <h2>The Core Purpose of an RNG</h2>
+              <p>Randomness serves four critical functions in modern life:</p>
+              <ol>
+                <li><strong>Cryptography:</strong> Securely encrypting your messages and passwords depends on generating keys that no hacker can guess.</li>
+                <li><strong>Simulations:</strong> Scientists use randomness to model complex systems, like weather patterns or stock market fluctuations.</li>
+                <li><strong>Fairness:</strong> From rolling dice in D&D to picking a lottery winner, RNGs ensure that every participant has an equal chance.</li>
+                <li><strong>Entertainment:</strong> Games rely on RNG for loot drops, procedural level generation, and "critical hits" to keep gameplay exciting.</li>
+              </ol>
+
+              <h2>Why We Use WASM for Randomness</h2>
+              <p>In our suite of tools, we utilize <strong>WebAssembly (WASM)</strong> to bring high-performance, cryptographically secure PRNGs directly to your browser. This combines the speed of low-level code with the security of a sandboxed web environment.</p>
+
+              <h2>Conclusion</h2>
+              <p>The next time you click a "Randomize" button, remember the incredible math and science happening behind the scenes to ensure that your result is as fair and unpredictable as possible.</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Harness the power of mathematical randomness.</h3>
+              <p>Explore our suite of private generators.</p>
+              <a href="/" class="btn btn--primary">View All Tools</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

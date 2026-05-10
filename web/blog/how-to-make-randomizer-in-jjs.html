@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Developer Guide: How to Create a Randomizer in JJS — Randomizer</title>
+    <meta name="description" content="Learn how to create a custom randomizer in JJS. Our developer guide covers the logic, scripting, and best practices for high-performance randomization." />
+    <link rel="canonical" href="https://randomizers.app/blog/how-to-make-randomizer-in-jjs.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Dev & Social</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 7 MIN READ</span>
+              <h1>Developer Guide: How to Create a Custom Randomizer in JJS</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>JJS (Juice JavaScript) is a powerful framework for creating interactive experiences, especially in the gaming and modding communities. One of the most requested features for JJS developers is a robust randomization system. This guide will show you **how to create a custom randomizer in JJS** from scratch.</p>
+
+              <h2>1. Understanding the Randomness API</h2>
+              <p>In JJS, standard `Math.random()` works, but for complex mods or games, you likely need a "Seeded Randomizer." This allows you to generate the same sequence of random numbers from a specific key, which is vital for multiplayer synchronization or "daily challenge" modes.</p>
+
+              <h2>2. Setting Up the Script</h2>
+              <pre><code>
+// Simple JJS Randomizer Script
+function getRandomElement(arr) {
+    const index = Math.floor(Math.random() * arr.length);
+    return arr[index];
+}
+
+const characters = ["Dandy", "Glisten", "Boxten", "Poppy"];
+const randomPick = getRandomElement(characters);
+console.log("Selected character:", randomPick);
+              </code></pre>
+
+              <h2>3. Implementing Weighted Randomness</h2>
+              <p>Not every outcome should have an equal chance. To create a "Rare" vs. "Common" system, you need weighted logic. Create a weight map and iterate through it to pick an item based on its assigned probability.</p>
+
+              <h2>4. Optimization for Performance</h2>
+              <p>If your randomizer is running every frame (for example, in a particle system), you need to optimize. Pre-generating a pool of random numbers or using a fast LCG (Linear Congruential Generator) is much more efficient than calling the standard API repeatedly.</p>
+
+              <h2>Conclusion</h2>
+              <p>Creating a **custom randomizer in JJS** allows you to build more dynamic, unpredictable, and engaging mods. By mastering seeded and weighted randomness, you can take your JJS projects to a professional level. Happy coding!</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Need more developer resources?</h3>
+              <p>Explore our open-source tools and WASM-based randomizer engine.</p>
+              <a href="/" class="btn btn--primary">View All Tools</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

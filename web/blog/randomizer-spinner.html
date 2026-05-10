@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
+
+    <title>Engage Your Audience with a Custom Randomizer Spinner — Randomizer</title>
+    <meta name="description" content="Boost engagement! Learn how a custom randomizer spinner can transform your presentations, streams, and classrooms into interactive, high-suspense events." />
+    <link rel="canonical" href="https://randomizers.app/blog/randomizer-spinner.html" />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <link rel="mask-icon" href="/logo.svg" color="#6366f1">
+    <link rel="manifest" href="/manifest.json" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('randomizer:theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <div data-header></div>
+
+      <main class="main">
+        <div class="container">
+          <article class="blog-post">
+            <header class="blog-post__header">
+              <span class="blog-category">Equipment & Social</span>
+              <span class="blog-post__meta">MAY 10, 2026 • 5 MIN READ</span>
+              <h1>Engage Your Audience with a Custom Randomizer Spinner</h1>
+            </header>
+
+            <div class="blog-post__body">
+              <p>In a world of short attention spans, keeping an audience engaged is harder than ever. Whether you're a teacher, a corporate presenter, or a live streamer, you need tools that invite participation. A **randomizer spinner** (or "Spin the Wheel") is one of the most effective ways to turn passive viewers into active participants.</p>
+
+              <h2>1. The Psychology of the Spin</h2>
+              <p>There is a reason why wheels are so popular in game shows: the "Slow Reveal." As the wheel slows down, the human brain enters a state of high arousal and focus. This natural peak in suspense ensures that everyone is paying attention when the final result is revealed.</p>
+
+              <h2>2. Ways to Use a Spinner</h2>
+              <ul>
+                <li><strong>Classrooms:</strong> Randomly pick a student to answer a question or choose the next topic for discussion.</li>
+                <li><strong>Streams:</strong> Let viewers add their names to the wheel for a giveaway or choose your next character.</li>
+                <li><strong>Meetings:</strong> Decide the order of presenters or pick a random "Fun Fact" to start the session.</li>
+              </ul>
+
+              <h2>3. Customization is Key</h2>
+              <p>A simple wheel is fine, but a *custom* **randomizer spinner** that includes your brand colors, images, and custom sounds is much more memorable. Our tools allow for deep customization while maintaining high performance and privacy.</p>
+
+              <h2>Conclusion</h2>
+              <p>A **randomizer spinner** is more than just a toy; it’s a powerful engagement engine. It breaks the monotony of standard presentations and adds an element of fun and chance that people naturally love. Give it a spin at your next event!</p>
+            </div>
+
+            <div class="blog-post__cta">
+              <h3>Ready to engage your audience?</h3>
+              <p>Try our highly customizable Randomizer Wheel for free.</p>
+              <a href="/tools/backlog-wheel/" class="btn btn--primary">Use Spinner Wheel</a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <div data-footer></div>
+    </div>
+    <script type="module" src="/src/pages/blog-post.ts"></script>
+  </body>
+</html>

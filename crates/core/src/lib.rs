@@ -1,5 +1,6 @@
 pub mod challenge;
 pub mod data;
+pub mod decision;
 pub mod dice;
 pub mod drop_point;
 pub mod gacha;
