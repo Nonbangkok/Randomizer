@@ -1,8 +1,9 @@
 import '../design-system/index.css';
 import { wireShell } from '../lib/shell.js';
-import { mountAd } from '../lib/ads.js';
+import { mountAd, loadAdSenseScript } from '../lib/ads.js';
 
 wireShell({ activePage: 'blog' });
+loadAdSenseScript();
 
 // Add ad to blog post if it's an article
 const postHeader = document.querySelector('.blog-post__header');

@@ -5,11 +5,17 @@ import { mountChallengeGenerator } from '../tools/challenge-generator/challenge-
 import { trackEvent } from '../lib/analytics.js';
 import { registerShortcut } from '../lib/shortcuts.js';
 import { bootPage } from '../lib/boot.js';
+import { mountAd } from '../lib/ads.js';
 
 wireShell({ activePage: 'challenges' });
 
 const root = document.querySelector<HTMLElement>('[data-challenge-generator]')!;
 const tool = mountChallengeGenerator(root);
+
+// Add ad below tool
+const adSlot = document.createElement('div');
+root.after(adSlot);
+mountAd(adSlot, { slot: '3355896468', format: 'leaderboard' });
 
 void bootPage(async () => {
   await tool.generate();
