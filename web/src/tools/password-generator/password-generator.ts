@@ -196,7 +196,7 @@ export function mountPasswordGenerator(root: HTMLElement): PasswordGeneratorHand
   const observer = new MutationObserver(syncFav);
   observer.observe(display, { childList: true, characterData: true, subtree: true });
 
-  mountAd(root.querySelector('[data-ad-slot="pg-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="pg-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   const panel = root.querySelector<HTMLElement>('[data-pg-history]')!;
   mountHistoryPanel(panel, { tool: TOOL, title: 'Password history' });

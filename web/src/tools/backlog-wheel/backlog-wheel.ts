@@ -125,7 +125,7 @@ export function mountBacklogWheel(root: HTMLElement): BacklogWheelHandle {
   // Reflect initial state into the URL when hydrated from URL (no-op otherwise).
   if (urlList) syncUrl();
 
-  mountAd(root.querySelector('[data-ad-slot="bw-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="bw-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   const panel = root.querySelector<HTMLElement>('[data-bw-history]')!;
   mountHistoryPanel(panel, {

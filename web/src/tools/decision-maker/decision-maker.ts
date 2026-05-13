@@ -142,7 +142,7 @@ export function mountDecisionMaker(root: HTMLElement): DecisionMakerHandle {
   const historyEl = root.querySelector<HTMLElement>('[data-dm-history]')!;
   mountHistoryPanel(historyEl, { tool: TOOL, title: 'Decision history' });
 
-  mountAd(root.querySelector('[data-ad-slot="dm-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="dm-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   return { generate };
 }

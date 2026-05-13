@@ -142,7 +142,7 @@ export function mountGameIdea(root: HTMLElement): GameIdeaHandle {
     }
   }
 
-  mountAd(root.querySelector('[data-ad-slot="gi-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="gi-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   mountHistoryPanel(historyEl, {
     tool: TOOL,

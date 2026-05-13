@@ -181,7 +181,7 @@ export function mountNameGenerator(root: HTMLElement): NameGeneratorHandle {
   const shareBtn = root.querySelector<HTMLButtonElement>('[data-share-btn]')!;
   shareBtn.addEventListener('click', () => { syncUrl(); copyShareLink(); });
 
-  mountAd(root.querySelector('[data-ad-slot="ng-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="ng-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   const panel = root.querySelector<HTMLElement>('[data-ng-history]')!;
   mountHistoryPanel(panel, { tool: TOOL, title: 'Names history' });

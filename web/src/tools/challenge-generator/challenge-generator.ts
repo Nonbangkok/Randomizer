@@ -140,7 +140,7 @@ export function mountChallengeGenerator(root: HTMLElement): ChallengeGeneratorHa
     try { await navigator.clipboard.writeText(text); showToast('Copied'); } catch { showToast('Copy failed'); }
   });
 
-  mountAd(root.querySelector('[data-ad-slot="cg-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="cg-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   const panel = root.querySelector<HTMLElement>('[data-cg-history]')!;
   mountHistoryPanel(panel, {

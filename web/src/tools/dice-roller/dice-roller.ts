@@ -140,7 +140,7 @@ export function mountDiceRoller(root: HTMLElement): DiceRollerHandle {
     }
   }
 
-  mountAd(root.querySelector('[data-ad-slot="dr-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="dr-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   mountHistoryPanel(historyEl, {
     tool: TOOL,

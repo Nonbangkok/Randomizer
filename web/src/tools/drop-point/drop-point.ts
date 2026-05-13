@@ -113,7 +113,7 @@ export function mountDropPoint(root: HTMLElement): DropPointHandle {
     }
   }
 
-  mountAd(root.querySelector('[data-ad-slot="dp-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="dp-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   mountHistoryPanel(historyEl, {
     tool: TOOL,

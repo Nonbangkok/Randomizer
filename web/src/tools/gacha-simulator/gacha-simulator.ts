@@ -198,7 +198,7 @@ export function mountGachaSimulator(root: HTMLElement): GachaSimulatorHandle {
     }
   }
 
-  mountAd(root.querySelector('[data-ad-slot="gs-leaderboard"]'), { format: 'leaderboard' });
+  mountAd(root.querySelector('[data-ad-slot="gs-leaderboard"]'), { slot: '3355896468', format: 'leaderboard' });
 
   mountHistoryPanel(historyEl, {
     tool: TOOL,
