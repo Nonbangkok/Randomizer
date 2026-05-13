@@ -57,15 +57,23 @@ export function mountAd(
          data-full-width-responsive="true"></ins>
   `;
 
-  // Delay push until the next frame to ensure the container is visible and has width > 0.
-  // This fixes the "availableWidth=0" error caused by mounting ads while #main-content is hidden.
-  requestAnimationFrame(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle ?? []).push({});
-    } catch (e) {
-      console.warn('AdSense push failed', e);
+  // Delay push until the container is visible and has a calculated width > 0.
+  // This fixes the "availableWidth=0" error by polling for visibility/layout completion.
+  const tryPush = (): void => {
+    if (!el || !el.isConnected) return; // Element removed from DOM
+    if (el.clientWidth > 0) {
+      try {
+        (window.adsbygoogle = window.adsbygoogle ?? []).push({});
+      } catch (e) {
+        console.warn('AdSense push failed', e);
+      }
+    } else {
+      // Still 0 width (likely hidden) — try again in the next frame.
+      requestAnimationFrame(tryPush);
     }
-  });
+  };
+
+  requestAnimationFrame(tryPush);
 }
 
 export function loadAdSenseScript(): void {
