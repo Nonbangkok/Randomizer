@@ -2,6 +2,7 @@ import { toggleTheme } from './theme.js';
 import { initGA } from './analytics.js';
 import { mountHeader, mountFooter } from './layout.js';
 import { prefetchAll } from './prefetch.js';
+import { recordVisit } from './recent-tools.js';
 
 export interface WireShellOptions {
   activePage?: string;
@@ -15,6 +16,8 @@ export function wireShell({ activePage = '' }: WireShellOptions = {}): void {
     prefetchAll(header.querySelectorAll<HTMLAnchorElement>('nav a[href]'));
   }
   mountFooter();
+
+  recordVisit(activePage);
 
   // Update footer year without re-rendering
   const yearEl = document.getElementById('footer-year');

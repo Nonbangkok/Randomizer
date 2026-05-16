@@ -58,6 +58,7 @@ export function mountGameIdea(root: HTMLElement): GameIdeaHandle {
       twist:    dim !== 'twist'    ? currentIdea.twist    : null,
     };
     activeSeed = null;
+    syncUrl();
     void generate(locked);
   });
 

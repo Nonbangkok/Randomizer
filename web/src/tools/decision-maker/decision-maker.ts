@@ -121,8 +121,12 @@ export function mountDecisionMaker(root: HTMLElement): DecisionMakerHandle {
     const copyBtn = target?.closest('[data-copy]');
     if (copyBtn) {
       const val = (copyBtn as HTMLElement).dataset.copy ?? '';
-      await navigator.clipboard.writeText(val);
-      showToast('Copied');
+      try {
+        await navigator.clipboard.writeText(val);
+        showToast('Copied');
+      } catch {
+        showToast('Copy failed');
+      }
     }
   });
 

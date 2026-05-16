@@ -58,13 +58,15 @@ export function mountGachaSimulator(root: HTMLElement): GachaSimulatorHandle {
 
   // Hydrate from URL
   const params = readParams();
+  const VALID_PRESETS = ['genshin_impact', 'honkai_star_rail', 'custom'];
+  const VALID_COUNTS = ['1', '10', '100'];
   const urlPreset = params.get('preset');
-  if (urlPreset) {
+  if (urlPreset && VALID_PRESETS.includes(urlPreset)) {
     const r = root.querySelector<HTMLInputElement>(`[name="mode"][value="${urlPreset}"]`);
     if (r) r.checked = true;
   }
   const urlPullCount = params.get('pull_count');
-  if (urlPullCount) {
+  if (urlPullCount && VALID_COUNTS.includes(urlPullCount)) {
     const b = root.querySelector<HTMLButtonElement>(`[data-gs-count="${urlPullCount}"]`);
     if (b) {
       root.querySelectorAll<HTMLButtonElement>('[data-gs-count]').forEach(x => x.classList.remove('active'));
@@ -82,7 +84,7 @@ export function mountGachaSimulator(root: HTMLElement): GachaSimulatorHandle {
     if (shareBtn) shareBtn.style.display = isCustom ? 'none' : '';
   }
 
-  modeRadios.forEach(r => r.addEventListener('change', updateModeVisibility));
+  modeRadios.forEach(r => r.addEventListener('change', () => { updateModeVisibility(); activeSeed = null; syncUrl(); }));
   updateModeVisibility();
 
   // Pull count buttons
@@ -123,6 +125,22 @@ export function mountGachaSimulator(root: HTMLElement): GachaSimulatorHandle {
 
   // Wire pull button
   root.querySelector<HTMLButtonElement>('#gs-pull-btn')?.addEventListener('click', () => {
+    const mode = (root.querySelector<HTMLInputElement>('[name="mode"]:checked'))?.value ?? '';
+    if (mode === 'custom') {
+      const totalRate = customTiers.reduce((sum, t) => sum + t.rate, 0);
+      if (customTiers.some((t) => t.rate < 0)) {
+        showToast('Tier rates cannot be negative');
+        return;
+      }
+      if (totalRate > 100.0001) {
+        showToast(`Tier rates sum to ${totalRate.toFixed(1)}% — must be ≤ 100%`);
+        return;
+      }
+      if (totalRate <= 0) {
+        showToast('At least one tier must have a positive rate');
+        return;
+      }
+    }
     activeSeed = null;
     syncUrl();
     void generate();
@@ -131,7 +149,9 @@ export function mountGachaSimulator(root: HTMLElement): GachaSimulatorHandle {
   function syncUrl(): void {
     const mode = (root.querySelector<HTMLInputElement>('[name="mode"]:checked'))?.value ?? '';
     const count = (root.querySelector<HTMLButtonElement>('[data-gs-count].active'))?.dataset['gsCount'] ?? '10';
-    if (mode !== 'custom') {
+    if (mode === 'custom') {
+      writeParams({ preset: null, pull_count: null, seed: null });
+    } else {
       writeParams({ preset: mode, pull_count: count, seed: activeSeed ?? null });
     }
   }

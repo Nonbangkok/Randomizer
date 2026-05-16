@@ -54,7 +54,7 @@ export function mountChallengeGenerator(root: HTMLElement): ChallengeGeneratorHa
     hydrateForm(form, p, HYDRATE_RULES);
     const seedRaw = p.get('seed');
     const seed = seedRaw != null ? parseInt(seedRaw, 10) : NaN;
-    if (Number.isFinite(seed) && seed > 0) activeSeed = seed;
+    if (Number.isFinite(seed) && seed >= 0) activeSeed = seed;
   }
 
   function syncUrl(): void {

@@ -94,7 +94,7 @@ export function mountBacklogWheel(root: HTMLElement): BacklogWheelHandle {
     try { await navigator.clipboard.writeText(target); showToast('Copied to clipboard'); } catch { /* ignore */ }
 
     spinning = false;
-    spinBtn.disabled = list.length < 2;
+    spinBtn.disabled = items().length < 2;
   });
 
   favSlot.addEventListener('click', (e) => {

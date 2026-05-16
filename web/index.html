@@ -75,48 +75,74 @@
           <h1>Randomizer</h1>
           <p class="lead">Fast, private, browser-based generators. Pick a tool to get started.</p>
 
+          <section class="home-recent" data-recent-section hidden aria-labelledby="recent-heading">
+            <div class="home-recent__header">
+              <h2 id="recent-heading">Recently used</h2>
+              <button type="button" class="home-recent__clear" data-recent-clear>Clear</button>
+            </div>
+            <div class="home-recent__rail" data-recent-rail></div>
+          </section>
+
+          <div class="home-search">
+            <label class="home-search__field">
+              <span class="home-search__icon" aria-hidden="true">🔍</span>
+              <input
+                type="search"
+                data-tool-search
+                placeholder="Search tools…"
+                aria-label="Search tools"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <kbd class="home-search__kbd" aria-hidden="true">/</kbd>
+            </label>
+            <p class="home-search__empty" data-tool-search-empty hidden role="status">
+              No tools match that search.
+            </p>
+          </div>
+
           <div class="tool-grid">
-            <a href="/tools/name-generator/" class="tool-card">
+            <a href="/tools/name-generator/" class="tool-card" data-key="names" data-search="name generator fantasy sci-fi rpg character names en th seeded">
               <span class="tool-card__icon" aria-hidden="true">🎭</span>
               <h2>Name Generator</h2>
               <p>Fantasy, sci-fi, and RPG character names in EN &amp; TH. Seeded mode for reproducible runs.</p>
             </a>
-            <a href="/tools/password-generator/" class="tool-card">
+            <a href="/tools/password-generator/" class="tool-card" data-key="passwords" data-search="password generator cryptographic strength time-to-crack secure">
               <span class="tool-card__icon" aria-hidden="true">🔐</span>
               <h2>Password Generator</h2>
               <p>Cryptographically random passwords with strength &amp; time-to-crack analysis.</p>
             </a>
-            <a href="/tools/backlog-wheel/" class="tool-card">
+            <a href="/tools/backlog-wheel/" class="tool-card" data-key="backlog" data-search="backlog wheel game spin pick random play steam library">
               <span class="tool-card__icon" aria-hidden="true">🎡</span>
               <h2>Backlog Wheel</h2>
               <p>Can't decide what to play? Spin the wheel to pick a random game from your personal backlog.</p>
             </a>
-            <a href="/tools/challenge-generator/" class="tool-card">
+            <a href="/tools/challenge-generator/" class="tool-card" data-key="challenges" data-search="challenge generator hardcore rules elden ring pokemon nuzlocke">
               <span class="tool-card__icon" aria-hidden="true">⚔️</span>
               <h2>Challenge Generator</h2>
               <p>Randomly generate hard-core rules and challenges for Elden Ring, Pokémon, and more.</p>
             </a>
-            <a href="/tools/dice-roller/" class="tool-card">
+            <a href="/tools/dice-roller/" class="tool-card" data-key="dice" data-search="dice roller d4 d6 d8 d10 d12 d20 d100 4d6kh3 ttrpg dnd notation seeded">
               <span class="tool-card__icon" aria-hidden="true">🎲</span>
               <h2>Dice Roller</h2>
               <p>Roll d4 to d100, keep-highest expressions like 4d6kh3, and custom dice notation. Seeded for sharing.</p>
             </a>
-            <a href="/tools/gacha-simulator/" class="tool-card">
+            <a href="/tools/gacha-simulator/" class="tool-card" data-key="gacha" data-search="gacha simulator genshin impact honkai star rail pity drop rates wish">
               <span class="tool-card__icon" aria-hidden="true">🎰</span>
               <h2>Gacha Simulator</h2>
               <p>Simulate Genshin Impact and Honkai: Star Rail pity systems, or set your own custom drop rates.</p>
             </a>
-            <a href="/tools/game-idea/" class="tool-card">
+            <a href="/tools/game-idea/" class="tool-card" data-key="game-idea" data-search="game idea generator indie genre setting mechanic twist concept brainstorm">
               <span class="tool-card__icon" aria-hidden="true">🕹️</span>
               <h2>Game Idea Generator</h2>
               <p>Instant indie game concepts — Genre, Setting, Mechanic, and a Twist. Reroll any dimension independently.</p>
             </a>
-            <a href="/tools/drop-point/" class="tool-card">
+            <a href="/tools/drop-point/" class="tool-card" data-key="drop" data-search="drop point randomizer apex fortnite warzone pubg landing zone battle royale">
               <span class="tool-card__icon" aria-hidden="true">📍</span>
               <h2>Drop Point Randomizer</h2>
               <p>Stop arguing about where to land. Random drop zones for Apex, Fortnite, Warzone, and more.</p>
             </a>
-            <a href="/tools/decision-maker/" class="tool-card">
+            <a href="/tools/decision-maker/" class="tool-card" data-key="decision" data-search="decision maker yes no choice picker coin flip deterministic">
               <span class="tool-card__icon" aria-hidden="true">🎯</span>
               <h2>Decision Maker</h2>
               <p>Get instant Yes/No answers or pick from custom choices. Quick, private, and deterministic.</p>
